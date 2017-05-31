@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 11:04:31 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 11:29:19 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,11 @@ static void	print_num(const void *arg, t_flag *flags)
 		chk_buff(flags, ft_nbrlen((short)arg), (long*)&s, 1);
 		ft_putshort((short)arg);
 	}
+	else if (flags->j && (flags->i || flags->d))
+	{
+		chk_buff(flags, ft_nbrlen((intmax_t)arg), &l, 0);
+		ft_putintmax_t((intmax_t)arg);
+	}
 	else if (flags->z && (flags->i || flags->d))
 	{
 		chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
@@ -167,6 +172,11 @@ static void	print_num(const void *arg, t_flag *flags)
 	{
 		chk_buff(flags, ft_unbrlen((unsigned short)arg), (long*)&l, 1);
 		ft_putunbr((unsigned short)arg);
+	}
+	else if (flags->u && flags->j)
+	{
+		chk_buff(flags, ft_nbrlen((uintmax_t)arg), (long*)&l, 1);
+		ft_putuintmax_t((uintmax_t)arg);
 	}
 	else if (flags->u && flags->z)
 	{
