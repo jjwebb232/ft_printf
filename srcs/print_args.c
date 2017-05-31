@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 08:35:21 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 08:59:13 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_buff(t_flag *flags)
 	c = ' ';
 	if (flags->zero && !flags->left)
 		c = '0';
-	while (flags->buff--)
+	while (flags->buff-- > 0)
 		ft_putchar(c);
 }
 
@@ -34,7 +34,7 @@ static void	chk_buff(t_flag *flags, int offset, long *n, int i)
 		s = -1;
 	if (flags->space && !s && (flags->d || flags->i))
 		ft_putchar(' ');
-	if (flags->zero)
+	if (flags->zero && !flags->left)
 	{
 		if (i && (int)*n < 0)
 			*n = (int)*n * -1;
@@ -142,27 +142,27 @@ static void	print_num(const void *arg, t_flag *flags)
 	}
 	else if (flags->i || flags->d)
 	{
-		chk_buff(flags, ft_nbrlen((long)arg), (long*)&i, 1);
+		chk_buff(flags, ft_nbrlen((int)arg), (long*)&i, 1);
 		ft_putnbr(i);
 	}
 	else if (flags->U || (flags->l && flags->u))
 	{
-		chk_buff(flags, ft_unbrlen((long)arg), &l, 0);
+		chk_buff(flags, ft_unbrlen((unsigned long)arg), &l, 0);
 		ft_putulong((unsigned long)arg);
 	}
 	else if (flags->u && flags->hh)
 	{
-		chk_buff(flags, ft_unbrlen((char)arg), (long*)&l, 1);
+		chk_buff(flags, ft_unbrlen((unsigned char)arg), (long*)&l, 1);
 		ft_putunbr((unsigned char)arg);
 	}
 	else if (flags->u && flags->h)
 	{
-		chk_buff(flags, ft_unbrlen((short)arg), (long*)&l, 1);
+		chk_buff(flags, ft_unbrlen((unsigned short)arg), (long*)&l, 1);
 		ft_putunbr((unsigned short)arg);
 	}
 	else if (flags->u)
 	{
-		chk_buff(flags, ft_unbrlen((int)arg), (long*)&i, 1);
+		chk_buff(flags, ft_unbrlen((unsigned int)arg), (long*)&i, 1);
 		ft_putunbr((unsigned int)arg);
 	}
 	else if (flags->o || flags->O || flags->x || flags->X || flags->p)
