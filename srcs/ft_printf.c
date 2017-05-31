@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 08:22:20 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 10:13:37 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int			ft_printf(const char *str, ...)
 	int			i;
 	int			len;
 	static int	x = 0;
-//	int			space_count;
 	
 	++x;
 	ft_memset(&flags, 0, sizeof(flags));
@@ -64,7 +63,6 @@ int			ft_printf(const char *str, ...)
 	len = ft_strlen(str);
 	i = 0;
 	va.arg = va_arg(va.ap, char *);
-//	space_count = 1;
 	while (i < len)
 	{
 		if (++x > len * len * len * len)
@@ -78,7 +76,6 @@ int			ft_printf(const char *str, ...)
 			}
 			if (str[i] == '%' && flags.arg)
 			{
-//				space_count = 1;
 				ft_putchar('%');
 				++i;
 				flags.arg = 0;
@@ -86,15 +83,8 @@ int			ft_printf(const char *str, ...)
 		}
 		if (flags.arg && is_arg(str[i]))
 		{
-//			if (str[i] == ' ')
-//				printf("test\n");
-//			while (--space_count)
-//				ft_putchar(' ');
-//			space_count = 1;
 			i += set_args(&flags, &str[i]);
-//			printf("char: %c\n", str[i]);
 			print_args(va.arg, &flags);
-//			i += print_arg(&str[i], va.arg, &flags);
 			if (flags.arg)
 			{
 				va.arg = va_arg(va.ap, char *);
@@ -103,9 +93,6 @@ int			ft_printf(const char *str, ...)
 			else
 				flags.arg = 1;
 		}
-//		if (flags.arg && str[i] == ' ')
-//			++space_count;
-//		else
 		if (!flags.arg && str[i] != '%')
 			ft_putchar(str[i++]);
 	}

@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 06:49:55 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 10:46:29 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <math.h>
 # define ISNUM(x) x >= '0' && x <= '9'
 # define ISLOWER(x) x >= 'a' && x <= 'z'
@@ -99,7 +100,9 @@ void				ft_putnbr_fd(int n, int fd);
 void				ft_putascii(int n);
 void				ft_putshort(int n);
 void				ft_putlong(long n);
+void				ft_putlonglong(long long n);
 void				ft_putulong(unsigned long n);
+void				ft_putsize_t(size_t n);
 void				ft_swap(int *a, int *b);
 int					ft_atoi(const char *str);
 char				*ft_ultoul_base(unsigned long n, int base);

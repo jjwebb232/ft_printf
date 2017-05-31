@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 09:33:49 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 10:53:51 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,35 +121,42 @@ static void	print_num(const void *arg, t_flag *flags)
 	long	l;
 	short	s;
 	char	c;
+	size_t	st;
 
 	i = (int)arg;
 	l = (long)arg;
 	s = (short)arg;
 	c = (char)arg;
+	st = (size_t)arg;
 	if (flags->D || (flags->l && (flags->d || flags->i)))
 	{
 		chk_buff(flags, ft_nbrlen((long)arg), &l, 0);
-		ft_putlong(l);
+		ft_putlong((long)arg);
 	}
 	else if (flags->hh && (flags->i || flags->d))
 	{
 		chk_buff(flags, ft_nbrlen((char)arg), (long*)&c, 1);
-		ft_putascii(c);
+		ft_putascii((char)arg);
 	}
 	else if (flags->h && (flags->i || flags->d))
 	{
 		chk_buff(flags, ft_nbrlen((short)arg), (long*)&s, 1);
-		ft_putshort(s);
+		ft_putshort((short)arg);
+	}
+	else if (flags->z && (flags->i || flags->d))
+	{
+		chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
+		ft_putlonglong((long long)arg);
 	}
 	else if (flags->i || flags->d)
 	{
 		chk_buff(flags, ft_nbrlen((int)arg), (long*)&i, 1);
-		ft_putnbr(i);
+		ft_putnbr((int)arg);
 	}
 	else if (flags->U || (flags->l && flags->u))
 	{
 		chk_buff(flags, ft_unbrlen((unsigned long)arg), &l, 0);
-		ft_putulong((unsigned long)arg);
+		ft_putlong((long)arg);
 	}
 	else if (flags->u && flags->hh)
 	{
