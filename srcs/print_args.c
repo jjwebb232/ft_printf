@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 11:29:19 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 11:39:52 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ static void	print_num(const void *arg, t_flag *flags)
 	else if (flags->U || (flags->l && flags->u))
 	{
 		chk_buff(flags, ft_unbrlen((unsigned long)arg), &l, 0);
-		ft_putlong((long)arg);
+		ft_putulong((unsigned long)arg);
 	}
 	else if (flags->u && flags->hh)
 	{
