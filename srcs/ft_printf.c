@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 08:13:02 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 08:16:07 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ft_printf(const char *str, ...)
 //	space_count = 1;
 	while (i < len)
 	{
-		if (++x > len * len)
+		if (++x > len * len * len * len)
 			break ;
 		if (str[i] == '%')
 		{
