@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 11:30:13 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 11:50:18 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void				ft_putshort(int n);
 void				ft_putlong(long n);
 void				ft_putlonglong(long long n);
 void				ft_putulong(unsigned long n);
+void				ft_putulonglong(unsigned long long n);
 void				ft_putsize_t(size_t n);
 void				ft_putintmax_t(intmax_t n);
 void				ft_putuintmax_t(uintmax_t n);
