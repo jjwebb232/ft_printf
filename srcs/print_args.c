@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 09:03:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 09:33:49 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ static void	ox_handler(const void *arg, t_flag *flags)
 		else
 			str = ft_uitoa_base((long)arg, 8);
 		chk_buff(flags, ft_strlen(str), 0, 0);
-		if (flags->hash)
+		if (flags->hash && (ft_strlen(str) > 1 || str[0] != '0'))
 			ft_putnbr(0);
 		ft_putstr(str);
 	}
 	else if ((flags->x || flags->X) && !flags->l)
 	{
-		str = ft_itoh((int)arg);
+		str = ft_itoh((unsigned int)arg);
 		if (flags->hh)
 			str += 4;
 		else if (flags->h)
@@ -93,7 +93,8 @@ static void	ox_handler(const void *arg, t_flag *flags)
 		i = -1;
 		if (flags->X)
 			while (str[++i])
-				str[i] = ft_toupper(str[i]);
+				if (ft_isalpha(str[i]))
+					str[i] = ft_toupper(str[i]);
 		ft_putstr(str);
 	}
 	else if (flags->x || flags->X || flags->p)

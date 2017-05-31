@@ -6,13 +6,13 @@
 #    By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 06:20:47 by jwebb             #+#    #+#              #
-#    Updated: 2017/05/31 06:58:26 by jwebb            ###   ########.fr        #
+#    Updated: 2017/05/31 09:31:39 by jwebb            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-FILES = ft_printf.c set_args.c print_args.c\
+FILES = ft_printf.c set_args.c print_args.c ft_isalpha.c\
 		ft_putchar.c ft_putstr.c ft_putwchar.c ft_putwstr.c\
 		ft_putnbr.c ft_putlong.c ft_putunbr.c ft_putulong.c ft_putshort.c\
 		ft_putascii.c\
