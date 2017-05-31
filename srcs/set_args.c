@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/17 15:08:11 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 09:10:59 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static int	set_mods(t_flag *flags, const char *str)
 	int	ret;
 
 	ret = 0;
-	if (*str == '#' || *str == '0' || *str == '+' || *str == '-' || *str == ' ')
+	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
+			|| (*str >= '0' && *str <= '9'))
 	{
 		ret += set_num_mods(flags, str);
 		str += ret;
