@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 07:56:02 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 07:57:47 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ int			ft_printf(const char *str, ...)
 //	space_count = 1;
 	while (i < len)
 	{
-		x = i;
+		if (x > 100)
+			break ;
+		++x;
 		if (str[i] == '%')
 		{
 			if (str[i] == '%' && !flags.arg)
 			{
 				++i;
+				x = 0;
 				flags.arg = 1;
 			}
 			if (str[i] == '%' && flags.arg)
@@ -80,6 +83,7 @@ int			ft_printf(const char *str, ...)
 //				space_count = 1;
 				ft_putchar('%');
 				++i;
+				x = 0;
 				flags.arg = 0;
 			}
 		}
@@ -91,6 +95,7 @@ int			ft_printf(const char *str, ...)
 //				ft_putchar(' ');
 //			space_count = 1;
 			i += set_args(&flags, &str[i]);
+			x = 0;
 //			printf("char: %c\n", str[i]);
 			print_args(va.arg, &flags);
 //			i += print_arg(&str[i], va.arg, &flags);
@@ -106,9 +111,8 @@ int			ft_printf(const char *str, ...)
 //			++space_count;
 //		else
 		if (!flags.arg && str[i] != '%')
-			ft_putchar(str[i++]);
-		if (x == i)
-			break ;
+			{ft_putchar(str[i++]); x = 0;}
+
 	}
 	va_end(va.ap);
 	return (0);
