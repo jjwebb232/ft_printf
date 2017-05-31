@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/10 06:47:17 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/17 22:43:31 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int		is_arg(const char c)
 {
 	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i' ||
 			c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x' || c == 'X'
-			|| c == 'c' || c == 'C' || c == 'l' || c == 'j' || c == 'z'
-			|| c == '#' || c == ' ' || c == '+' || c == '-' ||
-			(c >= '0' && c <= '9'))
+			|| c == 'c' || c == 'C' || c == 'l' || c == 'h' || c == 'j'
+			|| c == 'z' || c == '#' || c == ' ' || c == '+' || c == '-'
+			|| c == '.' || (c >= '0' && c <= '9'))
 		return (1);
 	return (0);
 }
@@ -52,16 +52,20 @@ int			ft_printf(const char *str, ...)
 	t_flag		flags;
 	t_va		va;
 	int			i;
+	int			len;
+	static int	x = 0;
 //	int			space_count;
 	
+	++x;
 	ft_memset(&flags, 0, sizeof(flags));
 	ft_memset(&va, 0, sizeof(va));
 	va.args = chk_args(str);
 	va_start(va.ap, str);
+	len = ft_strlen(str);
 	i = 0;
 	va.arg = va_arg(va.ap, char *);
 //	space_count = 1;
-	while (str[i])
+	while (i < len)
 	{
 		if (str[i] == '%')
 		{
@@ -78,8 +82,6 @@ int			ft_printf(const char *str, ...)
 				flags.arg = 0;
 			}
 		}
-		if (!str[i])
-			break ;
 		if (flags.arg && is_arg(str[i]))
 		{
 //			if (str[i] == ' ')

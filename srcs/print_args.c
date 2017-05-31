@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/10 06:43:29 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/18 19:53:18 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	chk_buff(t_flag *flags, int offset, long *n, int i)
 			*n *= -1;
 		if (s == -1)
 			ft_putchar('-');
-		if (s == 1)
+		if (s == 1 && ((i && (int)*n >= 0) || (!i && n < 0)))
 			ft_putchar('+');
 	}
 	if (s)
@@ -50,11 +50,11 @@ static void	chk_buff(t_flag *flags, int offset, long *n, int i)
 	flags->buff -= offset;
 	if (!flags->left && flags->buff > 0)
 		print_buff(flags);
-	if (s == 1 && !flags->zero)
+	if (s == 1 && !flags->zero && ((i && (int)*n >= 0) || (!i && n < 0)))
 		ft_putchar('+');
 }
 
-static void	ox_handler(const char *arg, t_flag *flags)
+static void	ox_handler(const void *arg, t_flag *flags)
 {
 	char	*str;
 	int		i;
@@ -63,6 +63,10 @@ static void	ox_handler(const char *arg, t_flag *flags)
 	{
 		if (flags->O || (flags->l && flags->o))
 			str = ft_ultoa_base((long)arg, 8);
+		else if (flags->o && flags->hh)
+			str = ft_uctoa_base((long)arg, 8);
+		else if (flags->o && flags->h)
+			str = ft_ustoa_base((long)arg, 8);
 		else
 			str = ft_uitoa_base((long)arg, 8);
 		chk_buff(flags, ft_strlen(str), 0, 0);
@@ -72,13 +76,35 @@ static void	ox_handler(const char *arg, t_flag *flags)
 	}
 	else if ((flags->x || flags->X) && !flags->l)
 	{
+		str = ft_itoh((int)arg);
+		if (flags->hh)
+			str += 4;
+		else if (flags->h)
+			str += 2;
+		chk_buff(flags, ft_strlen(str), 0, 0);
 		if (flags->hash)
 			flags->buff -= 2;
-		if (flags->hash && flags->x)
+		if (flags->hash && flags->x && str[0])
+			ft_putstr("0x");
+		if (flags->hash && flags->X && str[0])
+			ft_putstr("0X");
+		if (flags->hash && (flags->x || flags->X) && !str[0])
+			ft_putchar('0');
+		i = -1;
+		if (flags->X)
+			while (str[++i])
+				str[i] = ft_toupper(str[i]);
+		ft_putstr(str);
+	}
+	else if (flags->x || flags->X || flags->p)
+	{
+		if (flags->hash || flags->p)
+			flags->buff -=2;
+		if ((flags->hash && flags->x) || flags->p)
 			ft_putstr("0x");
 		if (flags->hash && flags->X)
 			ft_putstr("0X");
-		str = ft_itoh((int)arg);
+		str = ft_ultoa_base((unsigned long)arg, 16);
 		chk_buff(flags, ft_strlen(str), 0, 0);
 		i = -1;
 		if (flags->X)
@@ -88,21 +114,35 @@ static void	ox_handler(const char *arg, t_flag *flags)
 	}
 }
 
-static void	print_num(const char *arg, t_flag *flags)
+static void	print_num(const void *arg, t_flag *flags)
 {
 	int		i;
 	long	l;
+	short	s;
+	char	c;
 
 	i = (int)arg;
 	l = (long)arg;
+	s = (short)arg;
+	c = (char)arg;
 	if (flags->D || (flags->l && (flags->d || flags->i)))
 	{
 		chk_buff(flags, ft_nbrlen((long)arg), &l, 0);
 		ft_putlong(l);
 	}
+	else if (flags->hh && (flags->i || flags->d))
+	{
+		chk_buff(flags, ft_nbrlen((char)arg), (long*)&c, 1);
+		ft_putascii(c);
+	}
+	else if (flags->h && (flags->i || flags->d))
+	{
+		chk_buff(flags, ft_nbrlen((short)arg), (long*)&s, 1);
+		ft_putshort(s);
+	}
 	else if (flags->i || flags->d)
 	{
-		chk_buff(flags, ft_nbrlen((long)arg), (long*)&i, 0);
+		chk_buff(flags, ft_nbrlen((long)arg), (long*)&i, 1);
 		ft_putnbr(i);
 	}
 	else if (flags->U || (flags->l && flags->u))
@@ -110,23 +150,37 @@ static void	print_num(const char *arg, t_flag *flags)
 		chk_buff(flags, ft_unbrlen((long)arg), &l, 0);
 		ft_putulong((long)arg);
 	}
+	else if (flags->u && flags->hh)
+	{
+		chk_buff(flags, ft_unbrlen((char)arg), (long*)&l, 1);
+		ft_putunbr((char)arg);
+	}
+	else if (flags->u && flags->h)
+	{
+		chk_buff(flags, ft_unbrlen((short)arg), (long*)&l, 1);
+		ft_putunbr((short)arg);
+	}
 	else if (flags->u)
 	{
 		chk_buff(flags, ft_unbrlen((int)arg), (long*)&i, 1);
 		ft_putunbr((int)arg);
 	}
-	else if (flags->o || flags->O || flags->x || flags->X)
+	else if (flags->o || flags->O || flags->x || flags->X || flags->p)
 		ox_handler(arg, flags);
 }
 
-void		print_args(const char *arg, t_flag *flags)
+void		print_args(const void *arg, t_flag *flags)
 {
 	if (flags->c && !flags->l)
 		ft_putstr((char *)&arg);
+	else if (flags->c)
+		ft_putwchar((wchar_t)arg);
 	else if (flags->s && !flags->l)
 		ft_putstr(arg);
+	else if (flags->S || (flags->s && flags->l))
+		ft_putwstr((wchar_t *)arg);
 	else if (flags->d || flags->D || flags->i || flags->u || flags->U ||
-			flags->o || flags->O || flags->x || flags->X)
+			flags->o || flags->O || flags->x || flags->X || flags->p)
 		print_num(arg, flags);
 	else
 		flags->arg = 0;

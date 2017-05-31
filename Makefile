@@ -6,20 +6,24 @@
 #    By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 06:20:47 by jwebb             #+#    #+#              #
-#    Updated: 2017/05/10 07:05:45 by jwebb            ###   ########.fr        #
+#    Updated: 2017/05/31 06:58:26 by jwebb            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
 FILES = ft_printf.c set_args.c print_args.c\
-		ft_putchar.c ft_putstr.c ft_putnbr.c ft_putlong.c\
-		ft_putunbr.c ft_putulong.c\
-		ft_itoh.c ft_uitoa_base.c ft_ultoa_base.c ft_toupper.c\
+		ft_putchar.c ft_putstr.c ft_putwchar.c ft_putwstr.c\
+		ft_putnbr.c ft_putlong.c ft_putunbr.c ft_putulong.c ft_putshort.c\
+		ft_putascii.c\
+		ft_itoh.c ft_uctoa_base.c ft_ustoa_base.c ft_uitoa_base.c\
+		ft_ultoa_base.c ft_toupper.c\
 		ft_strlen.c ft_nbrlen.c ft_unbrlen.c\
-		ft_memalloc.c ft_memset.c
+		ft_memalloc.c ft_memset.c ft_wctomb.c ft_putwchar.c ft_putwstr.c\
+		ft_bzero.c
 SRCS = $(addprefix srcs/,$(FILES))
 OBJS = $(addprefix build/,$(FILES:.c=.o))
+HEAD = includes/ft_printf.h includes/libft.h
 
 LIBS = libft/libft.a
 
@@ -34,21 +38,23 @@ all: $(NAME)
 $(LIBS):
 	make -C libft
 
-$(NAME): $(OBJS) | $(LIBS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(HEAD)
+	@echo "Creating $(NAME)..."
+	@$(AR) $(NAME) $(OBJS)
 
 build:
-	mkdir build
+	@echo "Creating objects..."
+	@mkdir build
 
 build/%.o: srcs/%.c | build
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -rf build
-	make clean -C libft
+	@echo "Deleting objects..."
+	@rm -rf build
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C libft
+	@echo "Deleting $(NAME)..."
+	@rm -rf $(NAME)
 
 re: fclean all

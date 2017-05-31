@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/04/27 10:22:16 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 06:49:55 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);
+void				ft_putwchar(wchar_t wc);
+void				ft_putwstr(const wchar_t *s);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 int					ft_nbrlen(long n);
@@ -94,11 +96,13 @@ int					ft_is_prime(int n);
 void				ft_putnbr(int n);
 void				ft_putunbr(unsigned int n);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putascii(int n);
+void				ft_putshort(int n);
 void				ft_putlong(long n);
 void				ft_putulong(unsigned long n);
 void				ft_swap(int *a, int *b);
 int					ft_atoi(const char *str);
-unsigned long		ft_ultoul_base(unsigned long n, int base);
+char				*ft_ultoul_base(unsigned long n, int base);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -133,6 +137,8 @@ char				*ft_strjoin(char const *s1, char const *s2);
 void				ft_strdel(char **as);
 char				*ft_itoa(int n);
 char				*ft_itoh(long n);
+char				*ft_uctoa_base(short n, int base);
+char				*ft_ustoa_base(int n, int base);
 char				*ft_uitoa_base(long n, int base);
 char				*ft_ultoa_base(long n, int base);
 char				*ft_imtoa_base(intmax_t, int base);
@@ -165,5 +171,6 @@ void				ft_buildline(t_line *line, t_coords coords1,
 						t_coords coords2, int c);
 void				ft_printline(t_line line, t_mlx *mlx,
 						int width, int height);
+int					ft_wctomb(char *s, wchar_t wc);
 
 #endif

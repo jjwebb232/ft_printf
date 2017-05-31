@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/10 06:48:07 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/18 19:48:53 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,18 @@ typedef struct	s_flag
 	int	left:1;
 	int	sign:1;
 	int	space:1;
+	int dot:1;
 	int	buff;
 }				t_flag;
 
 typedef	struct	s_va
 {
 	int			args;
-	const char	*arg;
+	const void	*arg;
 	va_list		ap;
 }				t_va;
 
-void			print_args(const char *arg, t_flag *flags);
+void			print_args(const void *arg, t_flag *flags);
 int				set_args(t_flag *flags, const char *str);
 int				ft_printf(const char *str, ...);
 #endif

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultoa_base.c                                    :+:      :+:    :+:   */
+/*   ft_ustoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 01:01:12 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/12 13:07:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/17 16:18:32 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_ultoa_base(long nbr, int base)
+char	*ft_ustoa_base(int nbr, int base)
 {
 	char			*str;
 	int				l;
-	unsigned long	n;
+	unsigned short	n;
 
 	n = nbr;
 	l = 1;
@@ -31,7 +31,7 @@ char	*ft_ultoa_base(long nbr, int base)
 	{
 		str[--l] = n % base + '0';
 		if (str[l] > '9')
-			str[l] += 'a' - '0' - 10;
+			str[l] += 'a' - '0';
 		n /= base;
 	}
 	return (str);
