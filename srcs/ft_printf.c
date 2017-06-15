@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 10:13:37 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 20:55:25 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			ft_printf(const char *str, ...)
 	int			i;
 	int			len;
 	static int	x = 0;
+	int			ret;
 	
 	++x;
 	ft_memset(&flags, 0, sizeof(flags));
@@ -63,30 +64,36 @@ int			ft_printf(const char *str, ...)
 	len = ft_strlen(str);
 	i = 0;
 	va.arg = va_arg(va.ap, char *);
+	ret = 0;
 	while (i < len)
 	{
-		if (++x > len * len * len * len)
+		if (++x > len * len * len * len && x > 10)
 			break ;
 		if (str[i] == '%')
 		{
 			if (str[i] == '%' && !flags.arg)
 			{
+			ft_putstr("1\n");
 				++i;
 				flags.arg = 1;
 			}
 			if (str[i] == '%' && flags.arg)
 			{
+			ft_putstr("2\n");
 				ft_putchar('%');
+				++ret;
 				++i;
 				flags.arg = 0;
 			}
 		}
 		if (flags.arg && is_arg(str[i]))
 		{
+			ft_putstr("3\n");
 			i += set_args(&flags, &str[i]);
 			print_args(va.arg, &flags);
 			if (flags.arg)
 			{
+			ft_putstr("4\n");
 				va.arg = va_arg(va.ap, char *);
 				ft_memset(&flags, 0, sizeof(flags));
 			}
@@ -94,8 +101,12 @@ int			ft_printf(const char *str, ...)
 				flags.arg = 1;
 		}
 		if (!flags.arg && str[i] != '%')
+		{
+			ft_putstr("5\n");
 			ft_putchar(str[i++]);
+			++ret;
+		}
 	}
 	va_end(va.ap);
-	return (0);
+	return (ret);
 }
