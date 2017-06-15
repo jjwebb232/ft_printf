@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 20:57:42 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 21:03:46 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int			ft_printf(const char *str, ...)
 	int			ret;
 	
 	++x;
+	test = 0;
+	if (x == 1)
+		test = 1;
 	ft_memset(&flags, 0, sizeof(flags));
 	ft_memset(&va, 0, sizeof(va));
 	va.args = chk_args(str);
@@ -96,7 +99,7 @@ int			ft_printf(const char *str, ...)
 			else
 				flags.arg = 1;
 		}
-		if (!flags.arg && str[i] != '%')
+		if (!flags.arg && str[i] != '%' && str[i])
 		{
 			ft_putchar(str[i++]);
 			++ret;
