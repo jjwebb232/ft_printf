@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 20:55:25 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 20:57:42 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,11 @@ int			ft_printf(const char *str, ...)
 		{
 			if (str[i] == '%' && !flags.arg)
 			{
-			ft_putstr("1\n");
 				++i;
 				flags.arg = 1;
 			}
 			if (str[i] == '%' && flags.arg)
 			{
-			ft_putstr("2\n");
 				ft_putchar('%');
 				++ret;
 				++i;
@@ -88,12 +86,10 @@ int			ft_printf(const char *str, ...)
 		}
 		if (flags.arg && is_arg(str[i]))
 		{
-			ft_putstr("3\n");
 			i += set_args(&flags, &str[i]);
 			print_args(va.arg, &flags);
 			if (flags.arg)
 			{
-			ft_putstr("4\n");
 				va.arg = va_arg(va.ap, char *);
 				ft_memset(&flags, 0, sizeof(flags));
 			}
@@ -102,7 +98,6 @@ int			ft_printf(const char *str, ...)
 		}
 		if (!flags.arg && str[i] != '%')
 		{
-			ft_putstr("5\n");
 			ft_putchar(str[i++]);
 			++ret;
 		}
