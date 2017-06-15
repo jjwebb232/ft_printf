@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 11:54:13 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 19:36:48 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ static void	print_num(const void *arg, t_flag *flags)
 void		print_args(const void *arg, t_flag *flags)
 {
 	if (flags->c && !flags->l)
-		ft_putstr((char *)&arg);
+		ft_putchar((char)arg);
 	else if (flags->c)
 		ft_putwchar((wchar_t)arg);
 	else if (flags->s && !flags->l)
