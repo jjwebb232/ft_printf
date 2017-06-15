@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 19:36:48 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 19:57:18 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ static void	print_buff(t_flag *flags)
 		ft_putchar(c);
 }
 
-static void	chk_buff(t_flag *flags, int offset, long *n, int i)
+static int	chk_buff(t_flag *flags, int offset, long *n, int i)
 {
 	long	s;
+	int		ret;
 
 	s = 0;
+	ret = 1;
 	if (flags->sign && ((i && (int)*n >= 0) || (!i && *n >= 0)))
 		s = 1;
 	if ((i && (int)*n < 0) || (!i && n < 0))
@@ -41,7 +43,10 @@ static void	chk_buff(t_flag *flags, int offset, long *n, int i)
 		if (n < 0)
 			*n *= -1;
 		if (s == -1)
+		{
 			ft_putchar('-');
+			ret = -1;
+		}
 		if (s == 1 && ((i && (int)*n >= 0) || (!i && n < 0)))
 			ft_putchar('+');
 	}
@@ -52,6 +57,7 @@ static void	chk_buff(t_flag *flags, int offset, long *n, int i)
 		print_buff(flags);
 	if (s == 1 && !flags->zero && ((i && (int)*n >= 0) || (!i && n < 0)))
 		ft_putchar('+');
+	return (ret);
 }
 
 static void	ox_handler(const void *arg, t_flag *flags)
@@ -122,6 +128,7 @@ static void	print_num(const void *arg, t_flag *flags)
 	short	s;
 	char	c;
 	size_t	st;
+	int		sign;
 
 	i = (int)arg;
 	l = (long)arg;
@@ -130,73 +137,73 @@ static void	print_num(const void *arg, t_flag *flags)
 	st = (size_t)arg;
 	if (flags->D || (flags->l && (flags->d || flags->i)))
 	{
-		chk_buff(flags, ft_nbrlen((long)arg), &l, 0);
-		ft_putlong((long)arg);
+		sign = chk_buff(flags, ft_nbrlen((long)arg), &l, 0);
+		ft_putlong((long)arg * sign);
 	}
 	else if (flags->ll && (flags->i || flags->d))
 	{
-		chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
-		ft_putlonglong((long long)arg);
+		sign = chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
+		ft_putlonglong((long long)arg * sign);
 	}
 	else if (flags->hh && (flags->i || flags->d))
 	{
-		chk_buff(flags, ft_nbrlen((char)arg), (long*)&c, 1);
-		ft_putascii((char)arg);
+		sign = chk_buff(flags, ft_nbrlen((char)arg), (long*)&c, 1);
+		ft_putascii((char)arg * sign);
 	}
 	else if (flags->h && (flags->i || flags->d))
 	{
-		chk_buff(flags, ft_nbrlen((short)arg), (long*)&s, 1);
-		ft_putshort((short)arg);
+		sign = chk_buff(flags, ft_nbrlen((short)arg), (long*)&s, 1);
+		ft_putshort((short)arg * sign);
 	}
 	else if (flags->j && (flags->i || flags->d))
 	{
-		chk_buff(flags, ft_nbrlen((intmax_t)arg), &l, 0);
-		ft_putintmax_t((intmax_t)arg);
+		sign = chk_buff(flags, ft_nbrlen((intmax_t)arg), &l, 0);
+		ft_putintmax_t((intmax_t)arg * sign);
 	}
 	else if (flags->z && (flags->i || flags->d))
 	{
-		chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
-		ft_putlonglong((long long)arg);
+		sign = chk_buff(flags, ft_nbrlen((long long)arg), &l, 0);
+		ft_putlonglong((long long)arg * sign);
 	}
 	else if (flags->i || flags->d)
 	{
-		chk_buff(flags, ft_nbrlen((int)arg), (long*)&i, 1);
-		ft_putnbr((int)arg);
+		sign = chk_buff(flags, ft_nbrlen((int)arg), (long*)&i, 1);
+		ft_putnbr((int)arg * sign);
 	}
 	else if (flags->U || (flags->l && flags->u))
 	{
-		chk_buff(flags, ft_unbrlen((unsigned long)arg), &l, 0);
-		ft_putulong((unsigned long)arg);
+		sign = chk_buff(flags, ft_unbrlen((unsigned long)arg), &l, 0);
+		ft_putulong((unsigned long)arg * sign);
 	}
 	else if (flags->u && flags->ll)
 	{
-		chk_buff(flags, ft_unbrlen((unsigned long long)arg), &l, 0);
-		ft_putulonglong((unsigned long long)arg);
+		sign = chk_buff(flags, ft_unbrlen((unsigned long long)arg), &l, 0);
+		ft_putulonglong((unsigned long long)arg * sign);
 	}
 	else if (flags->u && flags->hh)
 	{
-		chk_buff(flags, ft_unbrlen((unsigned char)arg), (long*)&l, 1);
-		ft_putunbr((unsigned char)arg);
+		sign = chk_buff(flags, ft_unbrlen((unsigned char)arg), (long*)&l, 1);
+		ft_putunbr((unsigned char)arg * sign);
 	}
 	else if (flags->u && flags->h)
 	{
-		chk_buff(flags, ft_unbrlen((unsigned short)arg), (long*)&l, 1);
-		ft_putunbr((unsigned short)arg);
+		sign = chk_buff(flags, ft_unbrlen((unsigned short)arg), (long*)&l, 1);
+		ft_putunbr((unsigned short)arg * sign);
 	}
 	else if (flags->u && flags->j)
 	{
-		chk_buff(flags, ft_nbrlen((uintmax_t)arg), (long*)&l, 1);
-		ft_putuintmax_t((uintmax_t)arg);
+		sign = chk_buff(flags, ft_nbrlen((uintmax_t)arg), (long*)&l, 1);
+		ft_putuintmax_t((uintmax_t)arg * sign);
 	}
 	else if (flags->u && flags->z)
 	{
-		chk_buff(flags, ft_nbrlen((long long)arg), (long*)&l, 1);
-		ft_putsize_t((size_t)arg);
+		sign = chk_buff(flags, ft_nbrlen((long long)arg), (long*)&l, 1);
+		ft_putsize_t((size_t)arg * sign);
 	}
 	else if (flags->u)
 	{
-		chk_buff(flags, ft_unbrlen((unsigned int)arg), (long*)&i, 1);
-		ft_putunbr((unsigned int)arg);
+		sign = chk_buff(flags, ft_unbrlen((unsigned int)arg), (long*)&i, 1);
+		ft_putunbr((unsigned int)arg * sign);
 	}
 	else if (flags->o || flags->O || flags->x || flags->X || flags->p)
 		ox_handler(arg, flags);
