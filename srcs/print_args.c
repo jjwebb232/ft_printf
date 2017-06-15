@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 19:57:18 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 21:19:07 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ static void	ox_handler(const void *arg, t_flag *flags)
 		chk_buff(flags, ft_strlen(str), 0, 0);
 		if (flags->hash)
 			flags->buff -= 2;
-		if (flags->hash && flags->x && str[0])
+		if (flags->hash && flags->x && str[0] && ft_strcmp(str, "0"))
 			ft_putstr("0x");
-		if (flags->hash && flags->X && str[0])
+		if (flags->hash && flags->X && str[0] && ft_strcmp(str, "0"))
 			ft_putstr("0X");
 		if (flags->hash && (flags->x || flags->X) && !str[0])
 			ft_putchar('0');
@@ -105,13 +105,13 @@ static void	ox_handler(const void *arg, t_flag *flags)
 	}
 	else if (flags->x || flags->X || flags->p)
 	{
+		str = ft_ultoa_base((unsigned long)arg, 16);
 		if (flags->hash || flags->p)
 			flags->buff -=2;
-		if ((flags->hash && flags->x) || flags->p)
+		if (((flags->hash && flags->x) || flags->p) && ft_strcmp(str, "0"))
 			ft_putstr("0x");
-		if (flags->hash && flags->X)
+		if (flags->hash && flags->X && ft_strcmp(str, "0"))
 			ft_putstr("0X");
-		str = ft_ultoa_base((unsigned long)arg, 16);
 		chk_buff(flags, ft_strlen(str), 0, 0);
 		i = -1;
 		if (flags->X)
