@@ -1,38 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultoa_base.c                                    :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 01:01:12 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 23:26:35 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 01:33:49 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_ultoa_base(long nbr, int base)
+static char	*edge_handler(long nbr)
+{
+	if (nbr == LONG_MIN)
+		return ("-9223372036854775808");
+	if (!nbr)
+		return ("0");
+	return (NULL);
+}
+
+static char	*fill_str(char *str, long n, int l)
+{
+	while (n)
+	{
+		str[--l] = n % 10 + '0';
+		n /= 10;
+	}
+	if (l == 1)
+		str[0] = '-';
+	return (str);
+}
+
+char		*ft_ltoa(long nbr)
 {
 	char			*str;
 	int				l;
-	unsigned long	n;
+	long			n;
 
-	n = nbr;
+	if ((str = edge_handler(nbr)))
+		return (str);
 	l = 1;
-	if (!n)
-		return ("0");
-	while ((n /= base))
+	n = nbr;
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		++l;
+	}
+	n = nbr;
+	while ((n /= 10))
 		++l;
 	n = nbr;
 	str = (char*)ft_memalloc(l + 1);
 	str[l] = '\0';
-	while (n)
-	{
-		str[--l] = n % base + '0';
-		if (str[l] > '9')
-			str[l] += 'a' - '0' - 10;
-		n /= base;
-	}
-	return (str);
+	return (fill_str(str, n, l));
 }

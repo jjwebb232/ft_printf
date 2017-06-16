@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 09:10:59 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 04:50:40 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ static int	set_mods(t_flag *flags, const char *str)
 	{
 		ret += set_num_mods(flags, str);
 		str += ret;
+	}
+	if (*str == '.')
+	{
+		flags->dot = 1;
+		flags->prec = ft_atoi(str + 1);
+		ret += ft_nbrlen(flags->prec) + 1;
 	}
 	if (*str == 'h' && *(str + 1) == 'h')
 	{
@@ -140,5 +146,7 @@ int			set_args(t_flag *flags, const char *str)
 		flags->x = ++i * 0 + 1;
 	else if (str[i] == 'X')
 		flags->X = ++i * 0 + 1;
+	else if (str[i] == '%')
+		flags->pcent = ++i * 0 + 1;
 	return (i);
 }

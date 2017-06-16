@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 11:50:18 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/14 22:59:52 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,9 @@ void				ft_buildline(t_line *line, t_coords coords1,
 void				ft_printline(t_line line, t_mlx *mlx,
 						int width, int height);
 int					ft_wctomb(char *s, wchar_t wc);
+void				ft_addchar(char **str, char c);
+char				*ft_getwchar(wchar_t wc);
+void				ft_addwstr(char **str, wchar_t *ws);
+void				ft_addstr(char **str, char *s);
 
 #endif

@@ -1,15 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precision.c                                        :+:      :+:    :+:   */
+/*   ft_addwstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/18 19:18:14 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/15 04:59:06 by jwebb            ###   ########.fr       */
+/*   Created: 2017/06/14 22:57:20 by jwebb             #+#    #+#             */
+/*   Updated: 2017/06/14 22:57:31 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-//void	precision
+void	ft_addwstr(char **str, wchar_t *ws)
+{
+	int		i;
+	char	*wc;
+
+	i = -1;
+	*str = ft_memalloc(1);
+	while (ws[++i])
+	{
+		if (!(wc = ft_getwchar(ws[i])))
+			return ;
+		*str = (char *)ft_realloc(*str, ft_strlen(*str) + ft_strlen(wc));
+		*str = ft_strcat(*str, wc);
+	}
+}

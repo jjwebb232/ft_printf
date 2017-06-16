@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/05/31 10:12:49 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 04:34:20 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft.h"
+# define NUM_FLAGS (flags->d || flags->D || flags->i || flags->u || flags->U)
 
 typedef struct	s_flag
 {
 	unsigned int	arg:1;
+	unsigned int	pcent:1;
 	unsigned int	alt:1;
 	unsigned int	a:1;
 	unsigned int	A:1;
@@ -55,6 +57,8 @@ typedef struct	s_flag
 	unsigned int	space:1;
 	unsigned int	dot:1;
 	int				buff;
+	unsigned int	prec;
+	int				ret;
 }				t_flag;
 
 typedef	struct	s_va
@@ -67,4 +71,5 @@ typedef	struct	s_va
 void			print_args(const void *arg, t_flag *flags);
 int				set_args(t_flag *flags, const char *str);
 int				ft_printf(const char *str, ...);
+int				ft_strmethod(const void *arg, t_flag *flags);
 #endif

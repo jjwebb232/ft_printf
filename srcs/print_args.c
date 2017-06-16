@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 03:11:05 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 21:19:07 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 03:13:30 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	ox_handler(const void *arg, t_flag *flags)
 	{
 		str = ft_ultoa_base((unsigned long)arg, 16);
 		if (flags->hash || flags->p)
-			flags->buff -=2;
+			flags->buff -= 2;
 		if (((flags->hash && flags->x) || flags->p) && ft_strcmp(str, "0"))
 			ft_putstr("0x");
 		if (flags->hash && flags->X && ft_strcmp(str, "0"))
@@ -211,10 +211,10 @@ static void	print_num(const void *arg, t_flag *flags)
 
 void		print_args(const void *arg, t_flag *flags)
 {
-	if (flags->c && !flags->l)
+	if (flags->c)
 		ft_putchar((char)arg);
-	else if (flags->c)
-		ft_putwchar((wchar_t)arg);
+//	else if (flags->c)
+//		ft_putwchar((wchar_t)arg);
 	else if (flags->s && !flags->l)
 		ft_putstr(arg);
 	else if (flags->S || (flags->s && flags->l))
