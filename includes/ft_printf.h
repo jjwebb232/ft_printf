@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/15 04:34:20 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 22:02:05 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct	s_flag
 	unsigned int	sign:1;
 	unsigned int	space:1;
 	unsigned int	dot:1;
-	int				buff;
+	unsigned int	buff;
 	unsigned int	prec;
 	int				ret;
 }				t_flag;

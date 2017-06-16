@@ -6,7 +6,7 @@
 #    By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 06:20:47 by jwebb             #+#    #+#              #
-#    Updated: 2017/06/15 04:51:24 by jwebb            ###   ########.fr        #
+#    Updated: 2017/06/15 21:37:56 by jwebb            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FILES = ft_printf.c set_args.c print_args.c ft_isalpha.c ft_strcmp.c\
 		ft_putchar.c ft_putstr.c ft_putwchar.c ft_putwstr.c\
 		ft_putnbr.c ft_putlong.c ft_putunbr.c ft_putulong.c ft_putshort.c\
 		ft_putsize_t.c ft_putlonglong.c ft_putulonglong.c ft_putintmax_t.c\
-		ft_putuintmax_t.c ft_putascii.c\
+		ft_putuintmax_t.c ft_putascii.c ft_isdigit.c\
 		ft_atoi.c ft_itoh.c ft_uctoa_base.c ft_ustoa_base.c ft_uitoa_base.c\
 		ft_ultoa_base.c ft_toupper.c\
 		ft_strlen.c ft_nbrlen.c ft_unbrlen.c\

@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/15 04:50:40 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/15 21:37:15 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,14 @@ static int	set_mods(t_flag *flags, const char *str)
 	if (*str == '.')
 	{
 		flags->dot = 1;
-		flags->prec = ft_atoi(str + 1);
-		ret += ft_nbrlen(flags->prec) + 1;
+		ret++;
+		if (ft_isdigit(*(str + 1)))
+		{
+			flags->prec = ft_atoi(str + 1);
+			ret += ft_nbrlen(flags->prec);
+		}
+		else
+			flags->prec = 0;
 	}
 	if (*str == 'h' && *(str + 1) == 'h')
 	{
