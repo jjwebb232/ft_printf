@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/15 05:25:26 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/17 23:59:04 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Return value: Number of characters printed or negative value on error
 */
 
-static int		is_arg(const char c)
+int				is_arg(const char c)
 {
 	if (c == 's' || c == 'S' || c == 'p' || c == 'd' || c == 'D' || c == 'i' ||
 			c == 'o' || c == 'O' || c == 'u' || c == 'U' || c == 'x' || c == 'X'
@@ -54,9 +54,10 @@ int			ft_printf(const char *str, ...)
 	int			i;
 	int			len;
 	int			ret;
-	static int	x = 0;
-	
-	++x;
+	int			x;
+
+	if (!str)
+		return (0);	
 	ft_memset(&flags, 0, sizeof(flags));
 	ft_memset(&va, 0, sizeof(va));
 	va.args = chk_args(str);
@@ -65,10 +66,13 @@ int			ft_printf(const char *str, ...)
 	i = 0;
 	va.arg = va_arg(va.ap, char *);
 	ret = 0;
+	x = 0;
 	while (i < len)
 	{
+//		ft_putnbr(x);
 		if (++x > len * len * len * len && x > 10)
 			break ;
+//		ft_putnbr(i);
 		if (str[i] == '%')
 		{
 			if (str[i] == '%' && !flags.arg)
@@ -76,42 +80,21 @@ int			ft_printf(const char *str, ...)
 				++i;
 				flags.arg = 1;
 			}
-//			if (str[i] == '%' && flags.arg)
-//			{
-//				ft_putchar('%');
-//				++flags.ret;
-//				++i;
-//				flags.arg = 0;
-//			}
+			if (!is_arg(str[i]))
+				flags.arg = 0;
 		}
 		if (flags.arg && is_arg(str[i]))
 		{
 			i += set_args(&flags, &str[i]);
 			ft_strmethod(va.arg, &flags);
 			ret += flags.ret;
-//			ft_putstr("\n|");
-//			ft_putnbr(ret);
-//			ft_putstr("|\n");
 			ft_memset(&flags, 0, sizeof(flags));
 			va.arg = va_arg(va.ap, char *);
-/*			print_args(va.arg, &flags);
-			if (flags.arg || str[i] == '%')
-			{
-				if (str[i] == '%')
-				{
-					ft_putchar('%');
-					++flags.ret;
-					++i;
-					flags.arg = 0;
-				}
-				else
-				{
-					va.arg = va_arg(va.ap, char *);
-					ft_memset(&flags, 0, sizeof(flags));
-				}
-			}
-			else
-				flags.arg = 1;*/
+		}
+		else if (flags.arg && str[i] && str[i + 1])
+		{
+			flags.arg = 0;
+//			++i;
 		}
 		if (!flags.arg && str[i] != '%' && str[i])
 		{

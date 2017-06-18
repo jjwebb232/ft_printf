@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/15 22:02:05 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/17 23:50:56 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef	struct	s_va
 	va_list		ap;
 }				t_va;
 
+int				is_arg(const char c);
 void			print_args(const void *arg, t_flag *flags);
 int				set_args(t_flag *flags, const char *str);
 int				ft_printf(const char *str, ...);
