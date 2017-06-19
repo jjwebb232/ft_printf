@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 09:20:17 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 10:57:51 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	get_special_nums(char **str, const void *arg, t_flag *flags)
 		else if (flags->z)
 			*str = ft_ultoa_base((ssize_t)arg, 16);
 		else if (flags->hh)
-			*str = ft_ultoa_base((char)arg, 16);
+			*str = ft_ultoa_base((unsigned char)arg, 16);
 		else if (flags->h)
-			*str = ft_ultoa_base((short)arg, 16);
+			*str = ft_ultoa_base((unsigned short)arg, 16);
 		else
 			*str = ft_ultoa_base((unsigned int)arg, 16);
 	}
@@ -128,6 +128,7 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 		new = ft_strcat(tmp, new);
 	else
 		new = ft_strcat(new, tmp);
+	ft_memdel((void**)&tmp);
 	if (*str[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
 	{
 		neg[0] = '-';
@@ -149,13 +150,11 @@ char	*new_str(void)
 
 void	apply_mods(char **str, t_flag *flags, const void *arg)
 {
-	char	*tmp;
 	unsigned int		len;
 	int		i;
 	char	c;
 
 	len = ft_strlen(*str);
-	tmp = (char*)ft_memalloc(1);
 	c = ' ';
 	if ((flags->zero && !flags->left) || (flags->o && flags->dot &&
 			flags->buff < flags->prec))
@@ -165,7 +164,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
 			&& !flags->zero)
 		add_xprefix(str);
-	if (flags->o && flags->hash && ft_strcmp(*str, "0"))
+	if ((flags->o || flags->O) && flags->hash && ft_strcmp(*str, "0"))
 		len += add_chars(str, '0', 1, NULL);
 	if (flags->zero && flags->sign && *str[0] != '-')
 		++len;
@@ -181,6 +180,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 				add_chars(str, '0', flags->prec - len, NULL);
 			else if (!ft_strcmp(*str, "0") && !flags->hash)
 			{
+				ft_memdel((void**)str);
 				*str = ft_memalloc(1);
 				*str[0] = '\0';
 			}
