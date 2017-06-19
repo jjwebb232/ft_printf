@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 04:01:17 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 04:20:30 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*tmp;
 	char	*neg;
 
+//	ft_putstr("adding chars\n");
 	new = *str;
 	tmp = fill_tmp(len, c);
 	neg = ft_memalloc(1);
@@ -216,7 +217,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 			ft_isdigit(*str[0]))
 		add_chars(str, '+', 1, NULL);
 	else if (flags->space && NUM_FLAGS && !flags->u && !flags->U &&
-			*str[0] != '-')
+			*str[0] != '-' && (!flags->buff || flags->dot))
 		add_chars(str, ' ', 1, NULL);
 }
 
