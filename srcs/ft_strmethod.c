@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 04:30:43 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 08:19:45 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ void	get_nums(char **str, const void *arg, t_flag *flags)
 	else
 		base = 10;
 	if (flags->u && flags->ll)
-		*str = ft_ultoa_base((long long)arg, base);
+		*str = ft_ultoa_base((unsigned long long)arg, base);
 	else if (((flags->o || flags->u) && flags->l) || flags->O || flags->U)
-		*str = ft_ultoa_base((long)arg, base);
+		*str = ft_ultoa_base((unsigned long)arg, base);
 	else if ((flags->o || flags->u) && flags->hh)
-		*str = ft_uctoa_base((char)arg, base);
+		*str = ft_ultoa_base((unsigned char)arg, base);
 	else if ((flags->o || flags->u) && flags->h)
-		*str = ft_ustoa_base((short)arg, base);
-	else if (flags->u && flags->j)
+		*str = ft_ultoa_base((unsigned short)arg, base);
+	else if ((flags->o || flags->u) && flags->j)
 		*str = ft_ultoa_base((intmax_t)arg, base);
-	else if (flags->u && flags->z)
+	else if ((flags->o || flags->u) && flags->z)
 		*str = ft_ultoa_base((ssize_t)arg, base);
 	else if (flags->o || flags->u)
-		*str = ft_uitoa_base((long)arg, base);
+		*str = ft_ultoa_base((unsigned int)arg, base);
 	else if ((flags->i || flags->d) && flags->ll)
 		*str = ft_ltoa((int64_t)arg);
 	else if (((flags->i || flags->d) && flags->l) || flags->D)
@@ -86,6 +86,10 @@ void	get_special_nums(char **str, const void *arg, t_flag *flags)
 			*str = ft_ultoa_base((intmax_t)arg, 16);
 		else if (flags->z)
 			*str = ft_ultoa_base((ssize_t)arg, 16);
+		else if (flags->hh)
+			*str = ft_ultoa_base((char)arg, 16);
+		else if (flags->h)
+			*str = ft_ultoa_base((short)arg, 16);
 		else
 			*str = ft_ultoa_base((unsigned int)arg, 16);
 	}
@@ -115,26 +119,22 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*tmp;
 	char	*neg;
 
-//	ft_putstr("adding chars\n");
 	new = *str;
 	tmp = fill_tmp(len, c);
 	neg = ft_memalloc(1);
-	if (new[0] == '-' && flags && (flags->zero || flags->prec))
+	if (new[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
 		++new;
 	if (!flags || !flags->left)
 		new = ft_strcat(tmp, new);
 	else
 		new = ft_strcat(new, tmp);
-	if (*str[0] == '-' && flags && (flags->zero || flags->prec))
+	if (*str[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
 	{
 		neg[0] = '-';
 		*str = ft_strcat(neg, new);
 	}
 	else
 		*str = ft_strcat(neg, new);
-//	ft_putstr("modded:\t|");
-//	ft_putstr(new);
-//	ft_putstr("|\n");
 	return (len);
 }
 
@@ -197,15 +197,14 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (flags->buff && flags->sign && ft_isdigit(*str[0]) && i == ' ' &&
 				!flags->u && !flags->U)
 			add_chars(str, '+', 1, NULL);
-		if (flags->buff > len)
-			if (!((flags->u || flags->U) && i == ' '))
+		if (flags->buff > len && !((flags->u || flags->U) && i == '0'))
 			add_chars(str, (char)i,
 					flags->buff - flags->sign - flags->space - len, flags);
 	}
 	else if (flags->buff > len)
 	{
 		if (flags->c && !arg)
-			i = 1;
+			i = --flags->buff;
 		else
 			i = flags->buff;
 		add_chars(str, c, i - len, flags);
@@ -227,7 +226,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	unsigned int	len;
 	int				i;
 
-	str = (char*)ft_memalloc(1);
+	str = NULL;
 	len = 0;
 	if (flags->c || flags->s || flags->S || flags->pcent)
 		get_text(&str, arg, flags);
@@ -237,8 +236,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 		get_special_nums(&str, arg, flags);
 	if (str)
 	{
-		if (flags->hash || flags->zero || flags->left || flags->space ||
-				flags->dot || flags->buff || flags->sign)
+		if (MOD_FLAGS)
 			apply_mods(&str, flags, arg);
 		i = -1;
 		if (flags->X)
@@ -247,7 +245,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 					str[i] = ft_toupper(str[i]);
 		ft_putstr(str);
 		len = ft_strlen(str);
-//		ft_memdel((void**)&str);
+		ft_memdel((void**)&str);
 	}
 	if (flags->c && !len && !flags->buff)
 		len = 1;
