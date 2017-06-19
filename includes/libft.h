@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:59:52 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 03:52:06 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 void				ft_strdel(char **as);
 char				*ft_itoa(int n);
+char				*ft_ltoa(long n);
 char				*ft_itoh(long n);
 char				*ft_uctoa_base(short n, int base);
 char				*ft_ustoa_base(int n, int base);

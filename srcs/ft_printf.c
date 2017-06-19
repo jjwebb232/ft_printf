@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/17 23:59:04 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 04:00:56 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int			ft_printf(const char *str, ...)
 			i += set_args(&flags, &str[i]);
 			ft_strmethod(va.arg, &flags);
 			ret += flags.ret;
+			if (!flags.pcent)
+				va.arg = va_arg(va.ap, char *);
 			ft_memset(&flags, 0, sizeof(flags));
-			va.arg = va_arg(va.ap, char *);
 		}
 		else if (flags.arg && str[i] && str[i + 1])
 		{

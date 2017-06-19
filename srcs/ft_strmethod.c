@@ -6,13 +6,11 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/17 23:08:26 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 04:01:17 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*ft_ltoa(long long nbr);
 
 void	get_text(char **str, const void *arg, t_flag *flags)
 {
@@ -41,9 +39,9 @@ void	get_nums(char **str, const void *arg, t_flag *flags)
 	else if (((flags->o || flags->u) && flags->l) || flags->O || flags->U)
 		*str = ft_ultoa_base((long)arg, base);
 	else if ((flags->o || flags->u) && flags->hh)
-		*str = ft_uctoa_base((long)arg, base);
+		*str = ft_uctoa_base((char)arg, base);
 	else if ((flags->o || flags->u) && flags->h)
-		*str = ft_ustoa_base((long)arg, base);
+		*str = ft_ustoa_base((short)arg, base);
 	else if (flags->u && flags->j)
 		*str = ft_ultoa_base((intmax_t)arg, base);
 	else if (flags->u && flags->z)
