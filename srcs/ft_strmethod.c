@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 08:19:45 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 09:20:17 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,10 +247,12 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 		len = ft_strlen(str);
 		ft_memdel((void**)&str);
 	}
-	if (flags->c && !len && !flags->buff)
-		len = 1;
-	else if (flags->c && flags->buff)
-		len = flags->buff;
+	if (flags->c && !arg)
+		++len;
+//	if (flags->c && !len && !flags->buff)
+//		len = 1;
+//	else if (flags->c && flags->buff)
+//		len = flags->buff;
 	flags->ret += len;
 	return (len);
 }
