@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 04:20:30 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 04:30:43 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	get_special_nums(char **str, const void *arg, t_flag *flags)
 	}
 	else
 	{
-		*str = ft_ultoa_base((unsigned int)arg, 16);
+		*str = ft_ultoa_base((unsigned long)arg, 16);
 		add_xprefix(str);
 	}
 }
