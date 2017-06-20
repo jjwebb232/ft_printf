@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 01:01:12 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 03:53:27 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 11:15:29 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 static char	*edge_handler(long nbr)
 {
+	char			*str;
+
 	if (nbr == LONG_MIN)
-		return ("-9223372036854775808");
+	{
+		str = (char*)ft_memalloc(21);
+		str = ft_strcpy(str, "-9223372036854775808");
+		return (str);
+	}
 	if (!nbr)
-		return ("0");
+	{
+		str = (char*)ft_memalloc(2);
+		str[0] = '0';
+		return (str);
+	}
 	return (NULL);
 }
 

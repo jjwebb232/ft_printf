@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 04:30:43 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 11:47:30 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,27 +114,46 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*new;
 	char	*tmp;
 	char	*neg;
+	int		i;
 
 //	ft_putstr("adding chars\n");
-	new = *str;
+//	new = *str;
+	new = (char*)ft_memalloc(ft_strlen(*str) + len);
+	new = ft_strcpy(new, *str);
 	tmp = fill_tmp(len, c);
-	neg = ft_memalloc(1);
-	if (new[0] == '-' && flags && (flags->zero || flags->prec))
-		++new;
+	i = 0;
+	if (new[i] == '-' && flags && (flags->zero || flags->prec))
+		new = ft_strcpy(new, &new[1]);
 	if (!flags || !flags->left)
-		new = ft_strcat(tmp, new);
-	else
-		new = ft_strcat(new, tmp);
-	if (*str[0] == '-' && flags && (flags->zero || flags->prec))
 	{
-		neg[0] = '-';
-		*str = ft_strcat(neg, new);
+		tmp = ft_strcat(tmp, &new[i]);
+		ft_memdel((void**)&new);
+		new = (char*)ft_memalloc(ft_strlen(tmp));
+		new = ft_strcpy(new, tmp);
 	}
 	else
-		*str = ft_strcat(neg, new);
+		new = ft_strcat(&new[i], tmp);
+	if (*str[0] == '-' && flags && (flags->zero || flags->prec))
+	{
+		neg = ft_memalloc(1);
+		neg[0] = '-';
+//		ft_memdel((void**)&tmp);
+		neg = ft_strcat(neg, new);
+		ft_memdel((void**)&new);
+		new = (char*)ft_memalloc(ft_strlen(neg));
+		new = ft_strcpy(new, neg);
+		ft_memdel((void**)&neg);
+	}
+//	else
+//		*str = ft_strcat(neg, new);
 //	ft_putstr("modded:\t|");
 //	ft_putstr(new);
 //	ft_putstr("|\n");
+	ft_memdel((void**)str);
+	*str = ft_memalloc(ft_strlen(new));
+	*str = ft_strcpy(*str, new);
+	ft_memdel((void**)&new);
+	ft_memdel((void**)&tmp);
 	return (len);
 }
 

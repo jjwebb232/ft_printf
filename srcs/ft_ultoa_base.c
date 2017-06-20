@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 01:01:12 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 23:26:35 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 11:15:50 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ char	*ft_ultoa_base(long nbr, int base)
 	n = nbr;
 	l = 1;
 	if (!n)
-		return ("0");
+	{
+		str = (char*)ft_memalloc(2);
+		str[0] = '0';
+		return (str);
+	}
 	while ((n /= base))
 		++l;
 	n = nbr;
