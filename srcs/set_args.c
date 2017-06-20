@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/17 23:55:49 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 10:38:55 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int			set_args(t_flag *flags, const char *str)
 			str[i] == 'O' || str[i] == 'p' || str[i] == 'u' || str[i] == 'U' ||
 			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
 		i += set_num_args(flags, &str[i]);
-	else if (str[i] == 'c' || str[i] == 'C')
+	else if (str[i] == 'C')
 		flags->c = ++i * 0 + 1;
 	else if (str[i] == 'd')
 		flags->d = ++i * 0 + 1;
