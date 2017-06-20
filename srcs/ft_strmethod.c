@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/20 10:53:05 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 10:57:51 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ int		add_xprefix(char **str)
 {
 	char	*tmp;
 
-	tmp = (char*)ft_memalloc(2 + ft_strlen(*str));
+	tmp = (char*)ft_memalloc(2);
 	tmp = ft_strcat(tmp, "0x");
-	tmp = ft_strcat(tmp, *str);
-	ft_memdel((void**)str);
-	*str = tmp;
+	*str = ft_strcat(tmp, *str);
 	return (2);
 }
 
@@ -117,54 +115,28 @@ char	*fill_tmp(int len, char c)
 
 unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 {
-	str = str + 0;
-	c = c + 0;
-	len = len + 0;
-	flags = flags + 0;
 	char	*new;
 	char	*tmp;
 	char	*neg;
-	int		i;
 
-//	new = *str;
-	new = (char*)ft_memalloc(ft_strlen(*str) + len);
-	new = ft_strcpy(new, *str);
+	new = *str;
 	tmp = fill_tmp(len, c);
 	neg = ft_memalloc(1);
-	i = 0;
-	if (new[i] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
-		++i;
+	if (new[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
+		++new;
 	if (!flags || !flags->left)
-	{
-		tmp = ft_strcat(tmp, &new[i]);
-		ft_memdel((void**)&new);
-		new = (char*)ft_memalloc(ft_strlen(tmp));
-		new = ft_strcpy(new, tmp);
-	}
+		new = ft_strcat(tmp, new);
 	else
-		new = ft_strcat(&new[i], tmp);
-//		ft_memdel((void**)tmp);
+		new = ft_strcat(new, tmp);
+	ft_memdel((void**)&tmp);
 	if (*str[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
 	{
 		neg[0] = '-';
-		ft_memdel((void**)&tmp);
-		tmp = ft_strcat(neg, new);
-		ft_memdel((void**)&new);
-		new = (char*)ft_memalloc(ft_strlen(tmp));
-		new = ft_strcpy(new, tmp);
-//	ft_memdel((void**)&new);
+		*str = ft_strcat(neg, new);
 	}
-//	else
-//		*str = ft_strcat(neg, new);
-	ft_memdel((void**)str);
-	*str = ft_memalloc(ft_strlen(new));
-	*str = ft_strcpy(*str, new);
-	ft_memdel((void**)&new);
-	ft_memdel((void**)&tmp);
-	ft_memdel((void**)&neg);
-//	return (len);
-//	ft_memdel((void**)&tmp);
-	return (0);
+	else
+		*str = ft_strcat(neg, new);
+	return (len);
 }
 
 char	*new_str(void)
@@ -194,11 +166,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		add_xprefix(str);
 	if ((flags->o || flags->O) && flags->hash && ft_strcmp(*str, "0"))
 		len += add_chars(str, '0', 1, NULL);
-	if ((flags->o || flags->O) && flags->hash && !flags->zero)
-		--flags->buff;
-	else if ((flags->x || flags->X || flags->o || flags->O) && flags->zero)
-		++flags->buff;
-	if ((flags->zero || flags->sign) && *str[0] != '-')
+	if (flags->zero && flags->sign && *str[0] != '-')
 		++len;
 	if (flags->dot)
 	{
@@ -229,8 +197,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (flags->buff && flags->sign && ft_isdigit(*str[0]) && i == ' ' &&
 				!flags->u && !flags->U)
 			add_chars(str, '+', 1, NULL);
-		if ((int)flags->buff > (int)len + (int)flags->sign + (int)flags->space
-				&& !((flags->u || flags->U) && i == '0'))
+		if (flags->buff > len && !((flags->u || flags->U) && i == '0'))
 			add_chars(str, (char)i,
 					flags->buff - flags->sign - flags->space - len, flags);
 	}
@@ -276,12 +243,12 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 			while (str[++i])
 				if (ft_isalpha(str[i]))
 					str[i] = ft_toupper(str[i]);
-			ft_putstr(str);
+		ft_putstr(str);
 		len = ft_strlen(str);
 		ft_memdel((void**)&str);
 	}
 	if (flags->c && !arg)
-		len = flags->buff + 1;
+		++len;
 //	if (flags->c && !len && !flags->buff)
 //		len = 1;
 //	else if (flags->c && flags->buff)
