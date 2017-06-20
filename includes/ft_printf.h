@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 05:12:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/17 23:50:56 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 # include <stdarg.h>
 # include "libft.h"
 # define NUM_FLAGS (flags->d || flags->D || flags->i || flags->u || flags->U)
-# define HEX_FLAGS (flags->x || flags->X || flags->o || flags->p)
-# define MOD_FLAGS (MODS1 || MODS2)
-# define MODS1 (flags->hash || flags->left || flags->sign)
-# define MODS2 (flags->zero || flags->dot || flags->space || flags->buff)
-# define NOFREE_FLAGS (NUM_FLAGS || (HEX_FLAGS
 
 typedef struct	s_flag
 {

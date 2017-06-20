@@ -6,26 +6,18 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 01:01:12 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 05:35:48 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 03:53:27 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*edge_handler(char *str, long nbr)
+static char	*edge_handler(long nbr)
 {
 	if (nbr == LONG_MIN)
-	{
-		str = ft_memalloc(20);
-		str = ft_strcpy(str, "-9223372036854775808");
-		return (str);
-	}
+		return ("-9223372036854775808");
 	if (!nbr)
-	{
-		str = ft_memalloc(1);
-		ft_strcpy(str, "0");
-		return (str);
-	}
+		return ("0");
 	return (NULL);
 }
 
@@ -47,8 +39,7 @@ char		*ft_ltoa(long nbr)
 	int				l;
 	long			n;
 
-	str = NULL;
-	if ((str = edge_handler(str, nbr)))
+	if ((str = edge_handler(nbr)))
 		return (str);
 	l = 1;
 	n = nbr;

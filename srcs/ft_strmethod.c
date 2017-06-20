@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/20 10:41:02 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/19 04:30:43 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ void	get_nums(char **str, const void *arg, t_flag *flags)
 	else
 		base = 10;
 	if (flags->u && flags->ll)
-		*str = ft_ultoa_base((unsigned long long)arg, base);
+		*str = ft_ultoa_base((long long)arg, base);
 	else if (((flags->o || flags->u) && flags->l) || flags->O || flags->U)
-		*str = ft_ultoa_base((unsigned long)arg, base);
+		*str = ft_ultoa_base((long)arg, base);
 	else if ((flags->o || flags->u) && flags->hh)
-		*str = ft_ultoa_base((unsigned char)arg, base);
+		*str = ft_uctoa_base((char)arg, base);
 	else if ((flags->o || flags->u) && flags->h)
-		*str = ft_ultoa_base((unsigned short)arg, base);
-	else if ((flags->o || flags->u) && flags->j)
+		*str = ft_ustoa_base((short)arg, base);
+	else if (flags->u && flags->j)
 		*str = ft_ultoa_base((intmax_t)arg, base);
-	else if ((flags->o || flags->u) && flags->z)
+	else if (flags->u && flags->z)
 		*str = ft_ultoa_base((ssize_t)arg, base);
 	else if (flags->o || flags->u)
-		*str = ft_ultoa_base((unsigned int)arg, base);
+		*str = ft_uitoa_base((long)arg, base);
 	else if ((flags->i || flags->d) && flags->ll)
 		*str = ft_ltoa((int64_t)arg);
 	else if (((flags->i || flags->d) && flags->l) || flags->D)
@@ -68,11 +68,9 @@ int		add_xprefix(char **str)
 {
 	char	*tmp;
 
-	tmp = (char*)ft_memalloc(2 + ft_strlen(*str));
+	tmp = (char*)ft_memalloc(2);
 	tmp = ft_strcat(tmp, "0x");
-	tmp = ft_strcat(tmp, *str);
-	ft_memdel((void**)str);
-	*str = tmp;
+	*str = ft_strcat(tmp, *str);
 	return (2);
 }
 
@@ -88,10 +86,6 @@ void	get_special_nums(char **str, const void *arg, t_flag *flags)
 			*str = ft_ultoa_base((intmax_t)arg, 16);
 		else if (flags->z)
 			*str = ft_ultoa_base((ssize_t)arg, 16);
-		else if (flags->hh)
-			*str = ft_ultoa_base((unsigned char)arg, 16);
-		else if (flags->h)
-			*str = ft_ultoa_base((unsigned short)arg, 16);
 		else
 			*str = ft_ultoa_base((unsigned int)arg, 16);
 	}
@@ -121,24 +115,26 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*tmp;
 	char	*neg;
 
+//	ft_putstr("adding chars\n");
 	new = *str;
 	tmp = fill_tmp(len, c);
 	neg = ft_memalloc(1);
-	if (new[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
+	if (new[0] == '-' && flags && (flags->zero || flags->prec))
 		++new;
 	if (!flags || !flags->left)
 		new = ft_strcat(tmp, new);
 	else
 		new = ft_strcat(new, tmp);
-	ft_memdel((void**)&tmp);
-	if (*str[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
-//	{
+	if (*str[0] == '-' && flags && (flags->zero || flags->prec))
+	{
 		neg[0] = '-';
-	*str = ft_strcat(neg, new);
-//	ft_memdel((void**)new);
-//	}
-//	else
-//		*str = ft_strcat(neg, new);
+		*str = ft_strcat(neg, new);
+	}
+	else
+		*str = ft_strcat(neg, new);
+//	ft_putstr("modded:\t|");
+//	ft_putstr(new);
+//	ft_putstr("|\n");
 	return (len);
 }
 
@@ -153,11 +149,13 @@ char	*new_str(void)
 
 void	apply_mods(char **str, t_flag *flags, const void *arg)
 {
+	char	*tmp;
 	unsigned int		len;
 	int		i;
 	char	c;
 
 	len = ft_strlen(*str);
+	tmp = (char*)ft_memalloc(1);
 	c = ' ';
 	if ((flags->zero && !flags->left) || (flags->o && flags->dot &&
 			flags->buff < flags->prec))
@@ -167,7 +165,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
 			&& !flags->zero)
 		add_xprefix(str);
-	if ((flags->o || flags->O) && flags->hash && ft_strcmp(*str, "0"))
+	if (flags->o && flags->hash && ft_strcmp(*str, "0"))
 		len += add_chars(str, '0', 1, NULL);
 	if (flags->zero && flags->sign && *str[0] != '-')
 		++len;
@@ -183,7 +181,6 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 				add_chars(str, '0', flags->prec - len, NULL);
 			else if (!ft_strcmp(*str, "0") && !flags->hash)
 			{
-				ft_memdel((void**)str);
 				*str = ft_memalloc(1);
 				*str[0] = '\0';
 			}
@@ -200,14 +197,15 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (flags->buff && flags->sign && ft_isdigit(*str[0]) && i == ' ' &&
 				!flags->u && !flags->U)
 			add_chars(str, '+', 1, NULL);
-		if (flags->buff > len && !((flags->u || flags->U) && i == '0'))
+		if (flags->buff > len)
+			if (!((flags->u || flags->U) && i == ' '))
 			add_chars(str, (char)i,
 					flags->buff - flags->sign - flags->space - len, flags);
 	}
 	else if (flags->buff > len)
 	{
 		if (flags->c && !arg)
-			i = --flags->buff;
+			i = 1;
 		else
 			i = flags->buff;
 		add_chars(str, c, i - len, flags);
@@ -229,7 +227,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	unsigned int	len;
 	int				i;
 
-	str = NULL;
+	str = (char*)ft_memalloc(1);
 	len = 0;
 	if (flags->c || flags->s || flags->S || flags->pcent)
 		get_text(&str, arg, flags);
@@ -239,24 +237,22 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 		get_special_nums(&str, arg, flags);
 	if (str)
 	{
-		if (MOD_FLAGS)
+		if (flags->hash || flags->zero || flags->left || flags->space ||
+				flags->dot || flags->buff || flags->sign)
 			apply_mods(&str, flags, arg);
 		i = -1;
 		if (flags->X)
 			while (str[++i])
 				if (ft_isalpha(str[i]))
 					str[i] = ft_toupper(str[i]);
-		if (!flags->c)
-			ft_putstr(str);
+		ft_putstr(str);
 		len = ft_strlen(str);
-		ft_memdel((void**)&str);
+//		ft_memdel((void**)&str);
 	}
-	if (flags->c)
-		len = (flags->buff > flags->prec ? flags->buff : flags->prec) + 1;
-//	if (flags->c && !len && !flags->buff)
-//		len = 1;
-//	else if (flags->c && flags->buff)
-//		len = flags->buff;
+	if (flags->c && !len && !flags->buff)
+		len = 1;
+	else if (flags->c && flags->buff)
+		len = flags->buff;
 	flags->ret += len;
 	return (len);
 }

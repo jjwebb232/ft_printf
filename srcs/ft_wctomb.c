@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 03:31:46 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 07:12:26 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 06:20:31 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			ft_wctomb(char *s, wchar_t wc)
 		else if (i < len - 1)
 			s[i] = ((wc >> (6 * (len - 1 - i)) & table[0]) | table[1]);
 		else
-			s[i] = (wc & table[0]) | table[1];
+			s[i] = (wc) | table[1];
 	}
 	return (len);
 }
