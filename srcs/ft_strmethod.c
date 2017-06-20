@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/19 10:57:51 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 08:51:49 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int		add_xprefix(char **str)
 {
 	char	*tmp;
 
-	tmp = (char*)ft_memalloc(2);
+	tmp = (char*)ft_memalloc(2 + ft_strlen(*str));
 	tmp = ft_strcat(tmp, "0x");
-	*str = ft_strcat(tmp, *str);
+	tmp = ft_strcat(tmp, *str);
+	ft_memdel((void**)str);
+	*str = tmp;
 	return (2);
 }
 
@@ -130,12 +132,13 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 		new = ft_strcat(new, tmp);
 	ft_memdel((void**)&tmp);
 	if (*str[0] == '-' && flags && (flags->zero || flags->prec) && c != ' ')
-	{
+//	{
 		neg[0] = '-';
-		*str = ft_strcat(neg, new);
-	}
-	else
-		*str = ft_strcat(neg, new);
+	*str = ft_strcat(neg, new);
+//	ft_memdel((void**)new);
+//	}
+//	else
+//		*str = ft_strcat(neg, new);
 	return (len);
 }
 
@@ -247,8 +250,8 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 		len = ft_strlen(str);
 		ft_memdel((void**)&str);
 	}
-	if (flags->c && !arg)
-		++len;
+	if (flags->c)
+		len = (flags->buff > flags->prec ? flags->buff : flags->prec) + 1;
 //	if (flags->c && !len && !flags->buff)
 //		len = 1;
 //	else if (flags->c && flags->buff)
