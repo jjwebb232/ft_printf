@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 21:39:06 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/20 11:47:30 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/20 11:49:50 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,10 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 			while (str[++i])
 				if (ft_isalpha(str[i]))
 					str[i] = ft_toupper(str[i]);
-		ft_putstr(str);
+		if (flags->c)
+			ft_putstr("|TEST|");
+		else
+			ft_putstr(str);
 		len = ft_strlen(str);
 //		ft_memdel((void**)&str);
 	}
