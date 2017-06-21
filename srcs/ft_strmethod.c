@@ -24,28 +24,35 @@ void	get_text(char **str, const void *arg, t_flag *flags)
 		ft_addstr(str, (char *)arg);
 }
 
-void	get_nums(char **str, const void *arg, t_flag *flags)
+void	get_uo(char **str, const void *arg, t_flag *flags)
 {
 	int base;
 
-	if (flags->o || flags->O)
+	if (flags->o || flags->lo)
 		base = 8;
 	else
 		base = 10;
 	if (flags->u && flags->ll)
 		*str = ft_ultoa_base((unsigned long long)arg, base);
-	else if (((flags->o || flags->u) && flags->l) || flags->O || flags->U)
+	else if (flags->l || flags->lo || flags->lu)
 		*str = ft_ultoa_base((unsigned long)arg, base);
-	else if ((flags->o || flags->u) && flags->hh)
+	else if (flags->hh)
 		*str = ft_ultoa_base((unsigned char)arg, base);
-	else if ((flags->o || flags->u) && flags->h)
+	else if (flags->h)
 		*str = ft_ultoa_base((unsigned short)arg, base);
 	else if (flags->u && flags->j)
 		*str = ft_ultoa_base((intmax_t)arg, base);
 	else if (flags->u && flags->z)
 		*str = ft_ultoa_base((ssize_t)arg, base);
-	else if (flags->o || flags->u)
+	else
 		*str = ft_ultoa_base((unsigned int)arg, base);
+}
+
+void	get_nums(char **str, const void *arg, t_flag *flags)
+{
+	ft_memdel((void**)str);
+	if (flags->u || flags->o || flags->U || flags->O)
+		get_uo(str, arg, flags);
 	else if ((flags->i || flags->d) && flags->ll)
 		*str = ft_ltoa((int64_t)arg);
 	else if (((flags->i || flags->d) && flags->l) || flags->D)
@@ -74,6 +81,7 @@ int		add_xprefix(char **str)
 
 void	get_special_nums(char **str, const void *arg, t_flag *flags)
 {
+	ft_memdel((void**)str);
 	if (!flags->p)
 	{
 		if (flags->ll)
