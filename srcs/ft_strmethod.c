@@ -116,6 +116,8 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*neg;
 	int		i;
 
+//	ft_putstr("adding chars\n");
+//	new = *str;
 	new = (char*)ft_memalloc(ft_strlen(*str) + len);
 	new = ft_strcpy(new, *str);
 	tmp = fill_tmp(len, c);
@@ -135,12 +137,18 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	{
 		neg = ft_memalloc(1);
 		neg[0] = '-';
+//		ft_memdel((void**)&tmp);
 		neg = ft_strcat(neg, new);
 		ft_memdel((void**)&new);
 		new = (char*)ft_memalloc(ft_strlen(neg));
 		new = ft_strcpy(new, neg);
 		ft_memdel((void**)&neg);
 	}
+//	else
+//		*str = ft_strcat(neg, new);
+//	ft_putstr("modded:\t|");
+//	ft_putstr(new);
+//	ft_putstr("|\n");
 	ft_memdel((void**)str);
 	*str = ft_memalloc(ft_strlen(new));
 	*str = ft_strcpy(*str, new);
@@ -257,11 +265,10 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 	else if (flags->x || flags->X || flags->p)
 		get_special_nums(str, arg, flags);
 }
-
+/*
 int		ft_printstr(const void *arg, t_flag *flags, char *str)
 {
 	int				i;
-	int				len;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
 			flags->dot || flags->buff || flags->sign)
@@ -274,22 +281,33 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 	ft_putstr(str);
 	if (flags->c && !arg)
 		ft_putchar(0);
-	len = ft_strlen(str);
-	ft_memdel((void**)&str);
-	return (len);
-}
+	return (ft_strlen(str));
+}*/
 
 int		ft_strmethod(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
+//	int				i;
 
-	if (flags->r)
-		return (flags->ret += print_r(arg));
 	len = 0;
 	ft_buildstr(arg, flags, &str);
 	if (str)
-		len = ft_printstr(arg, flags, str);
+	{
+//		len = ft_printstr(arg, flags, str);
+		if (flags->hash || flags->zero || flags->left || flags->space ||
+				flags->dot || flags->buff || flags->sign)
+			apply_mods(&str, flags, arg);
+		i = -1;
+		if (flags->X)
+			while (str[++i])
+				if (ft_isalpha(str[i]))
+					str[i] = ft_toupper(str[i]);
+		ft_putstr(str);
+		if (flags->c && !arg)
+			ft_putchar(0);
+		len = ft_strlen(str);
+	}
 	if (flags->c && !len && !flags->buff)
 		len = 1;
 	else if (flags->c && flags->buff)
