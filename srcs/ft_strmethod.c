@@ -290,8 +290,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	{
 		len = ft_printstr(arg, flags, str);
 //		if (flags->hash || flags->zero || flags->left || flags->space ||
-				flags->dot || flags->buff || flags->sign)
-
+//				flags->dot || flags->buff || flags->sign)
 //			apply_mods(&str, flags, arg);
 //		i = -1;
 //		if (flags->X)
