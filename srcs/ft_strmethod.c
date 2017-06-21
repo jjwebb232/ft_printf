@@ -288,26 +288,13 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
-//	int				i;
 
+	if (flags->r)
+		return (flags->ret += print_r(arg));
 	len = 0;
 	ft_buildstr(arg, flags, &str);
 	if (str)
-	{
 		len = ft_printstr(arg, flags, str);
-//		if (flags->hash || flags->zero || flags->left || flags->space ||
-//				flags->dot || flags->buff || flags->sign)
-//			apply_mods(&str, flags, arg);
-//		i = -1;
-//		if (flags->X)
-//			while (str[++i])
-//				if (ft_isalpha(str[i]))
-//					str[i] = ft_toupper(str[i]);
-//		ft_putstr(str);
-//		if (flags->c && !arg)
-//			ft_putchar(0);
-//		len = ft_strlen(str);
-	}
 	if (flags->c && !len && !flags->buff)
 		len = 1;
 	else if (flags->c && flags->buff)
