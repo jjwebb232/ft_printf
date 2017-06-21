@@ -260,16 +260,18 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 
 int		ft_printstr(const void *arg, t_flag *flags, char *str)
 {
-//	int				i;
+	int				i;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
 			flags->dot || flags->buff || flags->sign)
 		apply_mods(&str, flags, arg);
-//	i = -1;
-//	if (flags->X)
-//		while (str[++i])
-//			if (ft_isalpha(str[i]))
-//				str[i] = ft_toupper(str[i]);
+	i = -1;
+	if (flags->X)
+		while (str[++i])
+			if (ft_isalpha(str[i]))
+				str[i] = ft_toupper(str[i]);
+	if (flags->hash || flags->zero || flags->left || flags->space ||
+			flags->dot || flags->buff || flags->sign || flags->X)
 	ft_putstr(str);
 //	if (flags->c && !arg)
 //		ft_putchar(0);
@@ -286,18 +288,18 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	ft_buildstr(arg, flags, &str);
 	if (str)
 	{
-		
-		if (flags->hash || flags->zero || flags->left || flags->space ||
+		len = ft_printstr(arg, flags, str);
+//		if (flags->hash || flags->zero || flags->left || flags->space ||
 				flags->dot || flags->buff || flags->sign)
-			len = ft_printstr(arg, flags, str);
+
 //			apply_mods(&str, flags, arg);
-		i = -1;
-		if (flags->X)
-			while (str[++i])
-				if (ft_isalpha(str[i]))
-					str[i] = ft_toupper(str[i]);
+//		i = -1;
+//		if (flags->X)
+//			while (str[++i])
+//				if (ft_isalpha(str[i]))
+//					str[i] = ft_toupper(str[i]);
 		if (!(flags->hash || flags->zero || flags->left || flags->space ||
-				flags->dot || flags->buff || flags->sign))
+				flags->dot || flags->buff || flags->sign || flags->X))
 		ft_putstr(str);
 		if (flags->c && !arg)
 			ft_putchar(0);
