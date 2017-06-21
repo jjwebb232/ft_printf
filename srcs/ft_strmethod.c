@@ -116,8 +116,6 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*neg;
 	int		i;
 
-//	ft_putstr("adding chars\n");
-//	new = *str;
 	new = (char*)ft_memalloc(ft_strlen(*str) + len);
 	new = ft_strcpy(new, *str);
 	tmp = fill_tmp(len, c);
@@ -137,18 +135,12 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	{
 		neg = ft_memalloc(1);
 		neg[0] = '-';
-//		ft_memdel((void**)&tmp);
 		neg = ft_strcat(neg, new);
 		ft_memdel((void**)&new);
 		new = (char*)ft_memalloc(ft_strlen(neg));
 		new = ft_strcpy(new, neg);
 		ft_memdel((void**)&neg);
 	}
-//	else
-//		*str = ft_strcat(neg, new);
-//	ft_putstr("modded:\t|");
-//	ft_putstr(new);
-//	ft_putstr("|\n");
 	ft_memdel((void**)str);
 	*str = ft_memalloc(ft_strlen(new));
 	*str = ft_strcpy(*str, new);
