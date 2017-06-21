@@ -73,9 +73,13 @@ int		add_xprefix(char **str)
 {
 	char	*tmp;
 
-	tmp = (char*)ft_memalloc(2);
+	tmp = (char*)ft_memalloc(ft_strlen(*str) + 2);
 	tmp = ft_strcat(tmp, "0x");
-	*str = ft_strcat(tmp, *str);
+	tmp = ft_strcat(tmp, *str);
+	ft_memdel((void**)str);
+	*str = (char*)ft_memalloc(ft_strlen(tmp));
+	*str = ft_strcpy(*str, tmp);
+	ft_memdel((void**)&tmp);
 	return (2);
 }
 
