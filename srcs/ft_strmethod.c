@@ -261,6 +261,7 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 int		ft_printstr(const void *arg, t_flag *flags, char *str)
 {
 	int				i;
+	int				len;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
 			flags->dot || flags->buff || flags->sign)
