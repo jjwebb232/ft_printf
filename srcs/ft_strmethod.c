@@ -269,7 +269,6 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 int		ft_printstr(const void *arg, t_flag *flags, char *str)
 {
 	int				i;
-//	int				len;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
 			flags->dot || flags->buff || flags->sign)
@@ -280,7 +279,9 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
 	ft_putstr(str);
-	return (0);
+	if (flags->c && !arg)
+		ft_putchar(0);
+	return (ft_strlen(str));
 }
 
 int		ft_strmethod(const void *arg, t_flag *flags)
@@ -293,7 +294,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	ft_buildstr(arg, flags, &str);
 	if (str)
 	{
-		ft_printstr(arg, flags, str);
+		len = ft_printstr(arg, flags, str);
 //		if (flags->hash || flags->zero || flags->left || flags->space ||
 //				flags->dot || flags->buff || flags->sign)
 //			apply_mods(&str, flags, arg);
@@ -303,9 +304,9 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 //				if (ft_isalpha(str[i]))
 //					str[i] = ft_toupper(str[i]);
 //		ft_putstr(str);
-		if (flags->c && !arg)
-			ft_putchar(0);
-		len = ft_strlen(str);
+//		if (flags->c && !arg)
+//			ft_putchar(0);
+//		len = ft_strlen(str);
 	}
 	if (flags->c && !len && !flags->buff)
 		len = 1;
