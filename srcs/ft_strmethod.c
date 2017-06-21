@@ -275,6 +275,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 	if (flags->c && !arg)
 		ft_putchar(0);
 	len = ft_strlen(str);
+	ft_memdel((void**)&str);
 	return (len);
 }
 
