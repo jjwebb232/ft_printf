@@ -188,7 +188,7 @@ void	add_precision(char **str, t_flag *flags, unsigned int len, char c)
 		c = ' ';
 	if ((flags->s || flags->S) && len > flags->prec)
 		*str = (char*)ft_realloc(*str, flags->prec);
-	if ((NUM_FLAGS || flags->x || flags-X || flags->o || flags->O))
+	if ((NUM_FLAGS || flags->x || flags->X || flags->o || flags->O))
 		num_precision(str, flags, len);
 	if (!flags->prec && ((flags->s || flags->S || flags->x || flags->X) ||
 			(flags->o && !flags->hash && !ft_strcmp(*str, "0"))))
