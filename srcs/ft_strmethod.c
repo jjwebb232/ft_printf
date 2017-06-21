@@ -35,19 +35,19 @@ void	get_nums(char **str, const void *arg, t_flag *flags)
 	else
 		base = 10;
 	if (flags->u && flags->ll)
-		*str = ft_ultoa_base((long long)arg, base);
+		*str = ft_ultoa_base((unsigned long long)arg, base);
 	else if (((flags->o || flags->u) && flags->l) || flags->O || flags->U)
-		*str = ft_ultoa_base((long)arg, base);
+		*str = ft_ultoa_base((unsigned long)arg, base);
 	else if ((flags->o || flags->u) && flags->hh)
-		*str = ft_uctoa_base((char)arg, base);
+		*str = ft_ultoa_base((unsigned char)arg, base);
 	else if ((flags->o || flags->u) && flags->h)
-		*str = ft_ustoa_base((short)arg, base);
+		*str = ft_ultoa_base((unsigned short)arg, base);
 	else if (flags->u && flags->j)
 		*str = ft_ultoa_base((intmax_t)arg, base);
 	else if (flags->u && flags->z)
 		*str = ft_ultoa_base((ssize_t)arg, base);
 	else if (flags->o || flags->u)
-		*str = ft_uitoa_base((long)arg, base);
+		*str = ft_ultoa_base((unsigned int)arg, base);
 	else if ((flags->i || flags->d) && flags->ll)
 		*str = ft_ltoa((int64_t)arg);
 	else if (((flags->i || flags->d) && flags->l) || flags->D)
@@ -116,8 +116,6 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	char	*neg;
 	int		i;
 
-//	ft_putstr("adding chars\n");
-//	new = *str;
 	new = (char*)ft_memalloc(ft_strlen(*str) + len);
 	new = ft_strcpy(new, *str);
 	tmp = fill_tmp(len, c);
@@ -137,18 +135,12 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	{
 		neg = ft_memalloc(1);
 		neg[0] = '-';
-//		ft_memdel((void**)&tmp);
 		neg = ft_strcat(neg, new);
 		ft_memdel((void**)&new);
 		new = (char*)ft_memalloc(ft_strlen(neg));
 		new = ft_strcpy(new, neg);
 		ft_memdel((void**)&neg);
 	}
-//	else
-//		*str = ft_strcat(neg, new);
-//	ft_putstr("modded:\t|");
-//	ft_putstr(new);
-//	ft_putstr("|\n");
 	ft_memdel((void**)str);
 	*str = ft_memalloc(ft_strlen(new));
 	*str = ft_strcpy(*str, new);
