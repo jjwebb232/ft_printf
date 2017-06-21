@@ -119,19 +119,6 @@ char	*fill_tmp(int len, char c)
 	return (tmp);
 }
 
-char			*fill_tmp(int len, char c)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = (char*)ft_memalloc(len);
-	while (i < len)
-		tmp[i++] = c;
-	tmp[i] = '\0';
-	return (tmp);
-}
-
 char			*add_neg(char *new)
 {
 	char	*neg;
