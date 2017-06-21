@@ -207,9 +207,10 @@ void	add_precision(char **str, t_flag *flags, unsigned int len, char c)
 	if (flags->buff && flags->sign && ft_isdigit(*str[0]) && c == ' ' &&
 			!flags->u && !flags->U)
 		add_chars(str, '+', 1, NULL);
-	if (flags->buff > len && !((flags->u || flags->U) && c == ' '))
-		add_chars(str, c,
-			flags->buff - flags->sign - flags->space - len, flags);
+	if (flags->buff > len)
+		if (!((flags->u || flags->U) && c == ' '))
+			add_chars(str, c,
+				flags->buff - flags->sign - flags->space - len, flags);
 }
 
 void	init_mods(char **str, t_flag *flags, char *c, unsigned int *len)
