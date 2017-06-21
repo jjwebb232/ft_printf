@@ -163,7 +163,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 	int		i;
 	char	c;
 
-	len = ft_strlen(*str);
+	len = ft_strlen(*str) - flags->pcent;
 	tmp = (char*)ft_memalloc(1);
 	c = ' ';
 	if ((flags->zero && !flags->left) || (flags->o && flags->dot &&
@@ -197,7 +197,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (!flags->prec && ((flags->s || flags->S || flags->x || flags->X) ||
 				(flags->o && !flags->hash && !ft_strcmp(*str, "0"))))
 			*str = new_str();
-		len = ft_strlen(*str);
+		len = ft_strlen(*str) - flags->pcent;
 		i = (int)c;
 		if (flags->buff > flags->prec &&
 				!(flags->buff == flags->prec + 1 &&
@@ -211,10 +211,12 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 			add_chars(str, (char)i,
 					flags->buff - flags->sign - flags->space - len, flags);
 	}
-	else if (flags->buff > len)
+	else if (flags->buff > len || ((int)len == -1 && flags->buff > 0))
 	{
 		if (flags->c && !arg)
 			i = 1;
+		else if ((int)len == -1)
+			i = flags->buff - 2;
 		else
 			i = flags->buff;
 		add_chars(str, c, i - len, flags);
@@ -269,12 +271,14 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
+	if (flags->pcent && flags->left)
+		ft_putchar('%');
 	ft_putstr(str);
-	if (flags->pcent)
+	if (flags->pcent && !flags->left)
 		ft_putchar('%');
 	if (flags->c && !arg)
 		ft_putchar(0);
-	len = ft_strlen(str);
+	len = ft_strlen(str) + flags->pcent;
 	ft_memdel((void**)&str);
 	return (len);
 }
