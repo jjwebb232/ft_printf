@@ -168,47 +168,7 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	ft_memdel((void**)&tmp);
 	return (len);
 }
-/*
-unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
-{
-	char	*new;
-	char	*tmp;
-	char	*neg;
-	int		i;
 
-	new = (char*)ft_memalloc(ft_strlen(*str) + len);
-	new = ft_strcpy(new, *str);
-	tmp = fill_tmp(len, c);
-	i = 0;
-	if (new[i] == '-' && flags && (flags->zero || flags->prec))
-		new = ft_strcpy(new, &new[1]);
-	if (!flags || !flags->left)
-	{
-		tmp = ft_strcat(tmp, &new[i]);
-		ft_memdel((void**)&new);
-		new = (char*)ft_memalloc(ft_strlen(tmp));
-		new = ft_strcpy(new, tmp);
-	}
-	else
-		new = ft_strcat(&new[i], tmp);
-	if (*str[0] == '-' && flags && (flags->zero || flags->prec))
-	{
-		neg = ft_memalloc(1);
-		neg[0] = '-';
-		neg = ft_strcat(neg, new);
-		ft_memdel((void**)&new);
-		new = (char*)ft_memalloc(ft_strlen(neg));
-		new = ft_strcpy(new, neg);
-		ft_memdel((void**)&neg);
-	}
-	ft_memdel((void**)str);
-	*str = ft_memalloc(ft_strlen(new));
-	*str = ft_strcpy(*str, new);
-	ft_memdel((void**)&new);
-	ft_memdel((void**)&tmp);
-	return (len);
-}
-*/
 char	*new_str(void)
 {
 	char	*str;
@@ -247,10 +207,9 @@ void	add_precision(char **str, t_flag *flags, unsigned int len, char c)
 	if (flags->buff && flags->sign && ft_isdigit(*str[0]) && c == ' ' &&
 			!flags->u && !flags->U)
 		add_chars(str, '+', 1, NULL);
-	if (flags->buff > len)
-		if (!((flags->u || flags->U) && c == ' '))
-			add_chars(str, c,
-				flags->buff - flags->sign - flags->space - len, flags);
+	if (flags->buff > len && !((flags->u || flags->U) && c == ' '))
+		add_chars(str, c,
+			flags->buff - flags->sign - flags->space - len, flags);
 }
 
 void	init_mods(char **str, t_flag *flags, char *c, unsigned int *len)
@@ -355,6 +314,8 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 	char			*str;
 	unsigned int	len;
 
+	if (flags->r)
+		return (flags->ret += print_r(arg));
 	len = 0;
 	ft_buildstr(arg, flags, &str);
 	if (str)
