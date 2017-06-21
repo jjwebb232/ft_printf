@@ -130,30 +130,10 @@ int			set_args(t_flag *flags, const char *str)
 		i += set_num_args(flags, &str[i]);
 	else if (str[i] == 'c' || str[i] == 'C')
 		flags->c = ++i * 0 + 1;
-	else if (str[i] == 'd')
-		flags->d = ++i * 0 + 1;
-	else if (str[i] == 'D')
-		flags->D = ++i * 0 + 1;
-	else if (str[i] == 'i')
-		flags->i = ++i * 0 + 1;
-	else if (str[i] == 'o')
-		flags->o = ++i * 0 + 1;
-	else if (str[i] == 'O')
-		flags->O = ++i * 0 + 1;
-	else if (str[i] == 'p')
-		flags->p = ++i * 0 + 1;
 	else if (str[i] == 's')
 		flags->s = ++i * 0 + 1;
 	else if (str[i] == 'S')
 		flags->S = ++i * 0 + 1;
-	else if (str[i] == 'u')
-		flags->u = ++i * 0 + 1;
-	else if (str[i] == 'U')
-		flags->U = ++i * 0 + 1;
-	else if (str[i] == 'x')
-		flags->x = ++i * 0 + 1;
-	else if (str[i] == 'X')
-		flags->X = ++i * 0 + 1;
 	else if (str[i] == '%')
 		flags->pcent = ++i * 0 + 1;
 	return (i);
