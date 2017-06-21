@@ -131,6 +131,8 @@ int			set_args(t_flag *flags, const char *str)
 		flags->S = 1;
 	else if (str[i] == '%')
 		flags->pcent = 1;
+	else if (str[i] == 'r')
+		flags->r = 1;
 	if (flags->c || flags->s || flags->S || flags->pcent || flags->r)
 		++i;
 	return (i);
