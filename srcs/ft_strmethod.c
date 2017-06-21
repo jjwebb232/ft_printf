@@ -264,7 +264,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 	int				len;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
-			flags->dot || flags->buff || flags->sign)
+			flags->dot || flags->buff || flags->sign || flags->pcent)
 		apply_mods(&str, flags, arg);
 	i = -1;
 	if (flags->X)
