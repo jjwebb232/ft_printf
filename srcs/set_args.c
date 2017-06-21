@@ -12,11 +12,8 @@
 
 #include "ft_printf.h"
 
-static int	set_num_mods(t_flag *flags, const char *str)
+static int	set_num_mods(t_flag *flags, const char *str, int ret)
 {
-	int ret;
-
-	ret = 0;
 	while (*str == '#' || *str == '0' || *str == '+' || *str == '-' ||
 			*str == ' ')
 	{
@@ -50,7 +47,7 @@ static int	set_mods(t_flag *flags, const char *str)
 	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
 			|| (*str >= '0' && *str <= '9'))
 	{
-		ret += set_num_mods(flags, str);
+		ret += set_num_mods(flags, str, 0);
 		str += ret;
 	}
 	if (*str == '.')
