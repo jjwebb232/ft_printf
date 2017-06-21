@@ -266,31 +266,41 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 		get_special_nums(str, arg, flags);
 }
 
+int		ft_printstr(const void *arg, t_flag *flags, char *str)
+{
+	int				i;
+//	int				len;
+
+	if (flags->hash || flags->zero || flags->left || flags->space ||
+			flats->dot || flags->buff || flags->sign)
+		apply_mods(&str, flags, arg);
+	i = -1;
+	if (flags->X)
+		while (str[++i])
+			if (ft_isalpha(str[i]))
+				str[i] = ft_toupper(str[i]);
+	return (0);
+}
+
 int		ft_strmethod(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
-	int				i;
+//	int				i;
 
-//	str = (char*)ft_memalloc(1);
 	len = 0;
 	ft_buildstr(arg, flags, &str);
-//	if (flags->c || flags->s || flags->S || flags->pcent)
-//		get_text(&str, arg, flags);
-//	else if (NUM_FLAGS || flags->o || flags->O)
-//		get_nums(&str, arg, flags);
-//	else if (flags->x || flags->X || flags->p)
-//		get_special_nums(&str, arg, flags);
 	if (str)
 	{
-		if (flags->hash || flags->zero || flags->left || flags->space ||
-				flags->dot || flags->buff || flags->sign)
-			apply_mods(&str, flags, arg);
-		i = -1;
-		if (flags->X)
-			while (str[++i])
-				if (ft_isalpha(str[i]))
-					str[i] = ft_toupper(str[i]);
+		ft_printstr(arg, flags, str);
+//		if (flags->hash || flags->zero || flags->left || flags->space ||
+//				flags->dot || flags->buff || flags->sign)
+//			apply_mods(&str, flags, arg);
+//		i = -1;
+//		if (flags->X)
+//			while (str[++i])
+//				if (ft_isalpha(str[i]))
+//					str[i] = ft_toupper(str[i]);
 		ft_putstr(str);
 		if (flags->c && !arg)
 			ft_putchar(0);
