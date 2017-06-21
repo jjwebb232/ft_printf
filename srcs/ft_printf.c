@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:37:36 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 13:38:25 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	init_printf(t_flag *flags, t_va *va, int *i, const char *str)
 static int	print_args(t_flag *flags, t_va *va, int *i, const char *str)
 {
 	*i += set_args(flags, &str[*i]);
-	if (flags.ld)
+	if (flags->ld)
 		ft_putchar('A');
 	else
 		ft_printf_arg(va->arg, flags);
