@@ -16,8 +16,8 @@ void	get_text(char **str, const void *arg, t_flag *flags)
 {
 	if (flags->c)
 		ft_addchar(str, (char)arg);
-	else if (flags->pcent)
-		ft_addchar(str, '%');
+//	else if (flags->pcent)
+//		ft_addchar(str, '%');
 	else if ((flags->l && flags->s) || flags->S)
 		ft_addwstr(str, (wchar_t *)arg);
 	else if (!arg)
@@ -272,6 +272,8 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
 	ft_putstr(str);
+	if (flags->pcent)
+		ft_putchar('%');
 	if (flags->c && !arg)
 		ft_putchar(0);
 	len = ft_strlen(str);
