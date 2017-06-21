@@ -39,29 +39,8 @@ static int	set_num_mods(t_flag *flags, const char *str, int ret)
 	return (ret);
 }
 
-static int	set_mods(t_flag *flags, const char *str)
+static int	set_size_mods(t_flag *flags, const char *str, int ret)
 {
-	int	ret;
-
-	ret = 0;
-	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
-			|| (*str >= '0' && *str <= '9'))
-	{
-		ret += set_num_mods(flags, str, 0);
-		str += ret;
-	}
-	if (*str == '.')
-	{
-		flags->dot = 1;
-		ret++;
-		if (ft_isdigit(*(str + 1)))
-		{
-			flags->prec = ft_atoi(str + 1);
-			ret += ft_nbrlen(flags->prec);
-		}
-		else
-			flags->prec = 0;
-	}
 	if (*str == 'h' && *(str + 1) == 'h')
 	{
 		flags->hh = 1;
@@ -82,11 +61,30 @@ static int	set_mods(t_flag *flags, const char *str)
 		flags->z = 1;
 	if (*str == 'h' || *str == 'j' || *str == 'l' || *str == 'z')
 		++ret;
-//	if (str[0] == 'l' && str[1] == 'o')
-//		printf("lo ret: %d\n", ret);
-//	if (flags->hash && str[1] == 'l' && str[2] == 'o')
-//		printf("#lo ret: %d\n", ret);
 	return (ret);
+}
+
+static int	set_mods(t_flag *flags, const char *str, int ret)
+{
+	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
+			|| (*str >= '0' && *str <= '9'))
+	{
+		ret += set_num_mods(flags, str, 0);
+		str += ret;
+	}
+	if (*str == '.')
+	{
+		flags->dot = 1;
+		ret++;
+		if (ft_isdigit(*(str + 1)))
+		{
+			flags->prec = ft_atoi(str + 1);
+			ret += ft_nbrlen(flags->prec);
+		}
+		else
+			flags->prec = 0;
+	}
+	return (set_size_mods(flags, str, ret));
 }
 
 static int	set_num_args(t_flag *flags, const char *str)
@@ -118,7 +116,7 @@ int			set_args(t_flag *flags, const char *str)
 {
 	int i;
 
-	i = set_mods(flags, str);
+	i = set_mods(flags, str, 0);
 	if (!is_arg(str[i]))
 			ft_putchar(str[i++]);
 	else if (str[i] == 'd' || str[i] == 'D' || str[i] == 'i' || str[i] == 'o' ||
@@ -133,7 +131,7 @@ int			set_args(t_flag *flags, const char *str)
 		flags->S = 1;
 	else if (str[i] == '%')
 		flags->pcent = 1;
-	if (flags->c || flags->s || flags->S || flags->pcent)
+	if (flags->c || flags->s || flags->S || flags->pcent || flags->r)
 		++i;
 	return (i);
 }
