@@ -279,6 +279,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
+	ft_putstr(str);
 	return (0);
 }
 
@@ -301,7 +302,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 //			while (str[++i])
 //				if (ft_isalpha(str[i]))
 //					str[i] = ft_toupper(str[i]);
-		ft_putstr(str);
+//		ft_putstr(str);
 		if (flags->c && !arg)
 			ft_putchar(0);
 		len = ft_strlen(str);
