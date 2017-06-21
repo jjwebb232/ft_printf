@@ -249,7 +249,7 @@ int		print_r(const void *arg)
 
 void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 {
-	*str = (char*)ft_memalloc(1);
+	*str = (char*)ft_memalloc(2);
 	if (flags->c || flags->s || flags->S || flags->pcent)
 		get_text(str, arg, flags);
 	else if (NUM_FLAGS || flags->o || flags->O)
@@ -264,7 +264,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 	int				len;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
-			flags->dot || flags->buff || flags->sign || flags->pcent)
+			flags->dot || flags->buff || flags->sign)
 		apply_mods(&str, flags, arg);
 	i = -1;
 	if (flags->X)
