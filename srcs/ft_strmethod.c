@@ -260,7 +260,7 @@ void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 
 int		ft_printstr(const void *arg, t_flag *flags, char *str)
 {
-	int				i;
+//	int				i;
 
 	if (flags->hash || flags->zero || flags->left || flags->space ||
 			flags->dot || flags->buff || flags->sign)
@@ -280,7 +280,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
-//	int				i;
+	int				i;
 
 	len = 0;
 	ft_buildstr(arg, flags, &str);
