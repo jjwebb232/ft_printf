@@ -6,14 +6,17 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 14:51:46 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/17 23:55:49 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	set_num_mods(t_flag *flags, const char *str, int ret)
+static int	set_num_mods(t_flag *flags, const char *str)
 {
+	int ret;
+
+	ret = 0;
 	while (*str == '#' || *str == '0' || *str == '+' || *str == '-' ||
 			*str == ' ')
 	{
@@ -39,8 +42,29 @@ static int	set_num_mods(t_flag *flags, const char *str, int ret)
 	return (ret);
 }
 
-static int	set_size_mods(t_flag *flags, const char *str, int ret)
+static int	set_mods(t_flag *flags, const char *str)
 {
+	int	ret;
+
+	ret = 0;
+	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
+			|| (*str >= '0' && *str <= '9'))
+	{
+		ret += set_num_mods(flags, str);
+		str += ret;
+	}
+	if (*str == '.')
+	{
+		flags->dot = 1;
+		ret++;
+		if (ft_isdigit(*(str + 1)))
+		{
+			flags->prec = ft_atoi(str + 1);
+			ret += ft_nbrlen(flags->prec);
+		}
+		else
+			flags->prec = 0;
+	}
 	if (*str == 'h' && *(str + 1) == 'h')
 	{
 		flags->hh = 1;
@@ -61,30 +85,10 @@ static int	set_size_mods(t_flag *flags, const char *str, int ret)
 		flags->z = 1;
 	if (*str == 'h' || *str == 'j' || *str == 'l' || *str == 'z')
 		++ret;
-	return (ret);
-}
-
-static int	set_mods(t_flag *flags, const char *str, int ret)
-{
-	if (*str == '#' || *str == '+' || *str == '-' || *str == ' '
-			|| (*str >= '0' && *str <= '9'))
-	{
-		ret += set_num_mods(flags, str, 0);
-		str += ret;
-	}
-	if (*str == '.')
-	{
-		flags->dot = 1;
-		ret++;
-		if (ft_isdigit(*(str + 1)))
-		{
-			flags->prec = ft_atoi(str + 1);
-			ret += ft_nbrlen(flags->prec);
-		}
-		else
-			flags->prec = 0;
-	}
-	ret += set_size_mods(flags, str, 0);
+//	if (str[0] == 'l' && str[1] == 'o')
+//		printf("lo ret: %d\n", ret);
+//	if (flags->hash && str[1] == 'l' && str[2] == 'o')
+//		printf("#lo ret: %d\n", ret);
 	return (ret);
 }
 
@@ -117,25 +121,40 @@ int			set_args(t_flag *flags, const char *str)
 {
 	int i;
 
-	i = set_mods(flags, str, 0);
+	i = set_mods(flags, str);
 	if (!is_arg(str[i]))
-		ft_putchar(str[i++]);
+			ft_putchar(str[i++]);
 	else if (str[i] == 'd' || str[i] == 'D' || str[i] == 'i' || str[i] == 'o' ||
 			str[i] == 'O' || str[i] == 'p' || str[i] == 'u' || str[i] == 'U' ||
-			str[i] == 'x' || str[i] == 'X')
+			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
 		i += set_num_args(flags, &str[i]);
 	else if (str[i] == 'c' || str[i] == 'C')
-		flags->c = 1;
+		flags->c = ++i * 0 + 1;
+	else if (str[i] == 'd')
+		flags->d = ++i * 0 + 1;
+	else if (str[i] == 'D')
+		flags->D = ++i * 0 + 1;
+	else if (str[i] == 'i')
+		flags->i = ++i * 0 + 1;
+	else if (str[i] == 'o')
+		flags->o = ++i * 0 + 1;
+	else if (str[i] == 'O')
+		flags->O = ++i * 0 + 1;
+	else if (str[i] == 'p')
+		flags->p = ++i * 0 + 1;
 	else if (str[i] == 's')
-		flags->s = 1;
+		flags->s = ++i * 0 + 1;
 	else if (str[i] == 'S')
-		flags->S = 1;
+		flags->S = ++i * 0 + 1;
+	else if (str[i] == 'u')
+		flags->u = ++i * 0 + 1;
+	else if (str[i] == 'U')
+		flags->U = ++i * 0 + 1;
+	else if (str[i] == 'x')
+		flags->x = ++i * 0 + 1;
+	else if (str[i] == 'X')
+		flags->X = ++i * 0 + 1;
 	else if (str[i] == '%')
-		flags->pcent = 1;
-	else if (str[i] == 'r')
-		flags->r = 1;
-	if (str[i] == 'c' || str[i] == 'C' || str[i] == 's' || str[i] == 'S' ||
-		str[i] == '%' || str[i] == 'r')
-		++i;
+		flags->pcent = ++i * 0 + 1;
 	return (i);
 }
