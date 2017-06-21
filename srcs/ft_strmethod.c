@@ -271,8 +271,6 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
-	if (flags->hash || flags->zero || flags->left || flags->space ||
-			flags->dot || flags->buff || flags->sign || flags->X)
 	ft_putstr(str);
 	if (flags->c && !arg)
 		ft_putchar(0);
