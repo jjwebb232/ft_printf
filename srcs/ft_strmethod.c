@@ -288,7 +288,7 @@ int		ft_strmethod(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
-//	int				i;
+	int				i;
 
 	len = 0;
 	ft_buildstr(arg, flags, &str);
