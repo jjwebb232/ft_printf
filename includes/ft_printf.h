@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 14:52:39 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 15:09:53 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft.h"
+# include "ansi.h"
 # define NUM_FLAGS (flags->d || flags->D || flags->i || flags->u || flags->U)
 
 typedef struct	s_flag
