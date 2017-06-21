@@ -250,7 +250,7 @@ int		print_r(const void *arg)
 void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 {
 	*str = (char*)ft_memalloc(2);
-	if (flags->c || flags->s || flags->S || flags->pcent)
+	if (flags->c || flags->s || flags->S)
 		get_text(str, arg, flags);
 	else if (NUM_FLAGS || flags->o || flags->O)
 		get_nums(str, arg, flags);
