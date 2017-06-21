@@ -186,19 +186,19 @@ void	add_precision(char **str, t_flag *flags, unsigned int len, char c)
 	if (flags->buff > flags->prec && !(flags->buff == flags->prec + 1 &&
 		NUM_FLAGS && *str[0] == '-'))
 		c = ' ';
-	if ((flags->s || flags->ls) && len > flags->prec)
+	if ((flags->s || flags->S) && len > flags->prec)
 		*str = (char*)ft_realloc(*str, flags->prec);
-	if ((NUM_FLAGS || flags->x || flags->xx || flags->o || flags->lo))
+	if ((NUM_FLAGS || flags->x || flags-X || flags->o || flags->O))
 		num_precision(str, flags, len);
-	if (!flags->prec && ((flags->s || flags->ls || flags->x || flags->xx) ||
+	if (!flags->prec && ((flags->s || flags->S || flags->x || flags->X) ||
 			(flags->o && !flags->hash && !ft_strcmp(*str, "0"))))
 		*str = new_str();
 	len = ft_strlen(*str);
 	if (flags->buff && flags->sign && ft_isdigit(*str[0]) && c == ' ' &&
-			!flags->u && !flags->lu)
+			!flags->u && !flags->U)
 		add_chars(str, '+', 1, NULL);
 	if (flags->buff > len)
-		if (!((flags->u || flags->lu) && c == ' '))
+		if (!((flags->u || flags->U) && c == ' '))
 			add_chars(str, c,
 				flags->buff - flags->sign - flags->space - len, flags);
 }
@@ -210,9 +210,9 @@ void	init_mods(char **str, t_flag *flags, char *c, unsigned int *len)
 	if ((flags->zero && !flags->left) || (flags->o && flags->dot &&
 			flags->buff < flags->prec))
 		*c = '0';
-	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0"))
+	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0"))
 		*len += 2;
-	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0")
+	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
 			&& !flags->zero)
 		add_xprefix(str);
 	if (flags->o && flags->hash && ft_strcmp(*str, "0"))
@@ -238,13 +238,13 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 			i = flags->buff;
 		add_chars(str, c, i - len, flags);
 	}
-	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0")
+	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
 			&& flags->zero && *str[0])
 		add_xprefix(str);
-	if (flags->sign && NUM_FLAGS && !flags->u && !flags->lu &&
+	if (flags->sign && NUM_FLAGS && !flags->u && !flags->U &&
 			ft_isdigit(*str[0]))
 		add_chars(str, '+', 1, NULL);
-	else if (flags->space && NUM_FLAGS && !flags->u && !flags->lu &&
+	else if (flags->space && NUM_FLAGS && !flags->u && !flags->U &&
 			*str[0] != '-' && (!flags->buff || flags->dot))
 		add_chars(str, ' ', 1, NULL);
 }
