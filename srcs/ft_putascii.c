@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 14:48:51 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 09:48:26 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/17 14:49:20 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_putascii(int n)
 {
-	char	c;
-
-	c = (char)n;
+	char c;
+	c = (char) n;
 	ft_putnbr(c);
 }

@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addstr.c                                        :+:      :+:    :+:   */
+/*   ft_getwchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/14 22:57:45 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:53 by jwebb            ###   ########.fr       */
+/*   Created: 2017/06/14 22:56:49 by jwebb             #+#    #+#             */
+/*   Updated: 2017/06/14 22:57:04 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_addstr(char **str, char *s)
+char	*ft_getwchar(wchar_t wc)
 {
-	*str = (char *)ft_memalloc(ft_strlen(s));
-	*str = ft_strcat(*str, s);
+	char	*s;
+	int		len;
+
+	if (!(s = (char *)ft_memalloc(4)))
+		return (NULL);
+	len = ft_wctomb(s, wc);
+	if (len < 1)
+		return (NULL);
+	return (s);
+
 }
