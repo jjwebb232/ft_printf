@@ -129,12 +129,14 @@ int			set_args(t_flag *flags, const char *str)
 			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
 		i += set_num_args(flags, &str[i]);
 	else if (str[i] == 'c' || str[i] == 'C')
-		flags->c = ++i * 0 + 1;
+		flags->c = 1;
 	else if (str[i] == 's')
-		flags->s = ++i * 0 + 1;
+		flags->s = 1;
 	else if (str[i] == 'S')
-		flags->S = ++i * 0 + 1;
+		flags->S = 1;
 	else if (str[i] == '%')
-		flags->pcent = ++i * 0 + 1;
+		flags->pcent = 1;
+	if (flags->c || flags->s || flags->S || flags->pcent)
+		++i;
 	return (i);
 }
