@@ -28,13 +28,13 @@ void	get_uo(char **str, const void *arg, t_flag *flags)
 {
 	int base;
 
-	if (flags->o || flags->lo)
+	if (flags->o || flags->O)
 		base = 8;
 	else
 		base = 10;
 	if (flags->u && flags->ll)
 		*str = ft_ultoa_base((unsigned long long)arg, base);
-	else if (flags->l || flags->lo || flags->lu)
+	else if (flags->l || flags->O || flags->U)
 		*str = ft_ultoa_base((unsigned long)arg, base);
 	else if (flags->hh)
 		*str = ft_ultoa_base((unsigned char)arg, base);
