@@ -258,11 +258,11 @@ int		print_r(const void *arg)
 void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 {
 	*str = (char*)ft_memalloc(1);
-	if (flags->c || flags->s || flags->ls || flags->pcent)
+	if (flags->c || flags->s || flags->S || flags->pcent)
 		get_text(str, arg, flags);
-	else if (NUM_FLAGS || flags->o || flags->lo)
+	else if (NUM_FLAGS || flags->o || flags->O)
 		get_nums(str, arg, flags);
-	else if (flags->x || flags->xx || flags->p)
+	else if (flags->x || flags->X || flags->p)
 		get_special_nums(str, arg, flags);
 }
 
@@ -275,7 +275,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 			flags->dot || flags->buff || flags->sign)
 		apply_mods(&str, flags, arg);
 	i = -1;
-	if (flags->xx)
+	if (flags->X)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
