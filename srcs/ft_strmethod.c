@@ -74,7 +74,7 @@ unsigned int	add_chars(char **str, char c, int len, t_flag *flags)
 	ft_memdel((void**)&tmp);
 	return (len);
 }
-
+/*
 char	*new_str(void)
 {
 	char	*str;
@@ -83,7 +83,7 @@ char	*new_str(void)
 	str[0] = '\0';
 	return (str);
 }
-/*
+
 void	num_precision(char **str, t_flag *flags, unsigned int len)
 {
 	if (*str[0] == '-' && len < flags->prec)
