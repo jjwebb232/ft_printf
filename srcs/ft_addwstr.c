@@ -25,5 +25,6 @@ void	ft_addwstr(char **str, wchar_t *ws)
 			return ;
 		*str = (char *)ft_realloc(*str, ft_strlen(*str) + ft_strlen(wc));
 		*str = ft_strcat(*str, wc);
+		ft_memdel((void**)&wc);
 	}
 }

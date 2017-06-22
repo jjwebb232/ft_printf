@@ -56,7 +56,7 @@ int			ft_wctomb(char *s, wchar_t wc)
 		else if (i < len - 1)
 			s[i] = ((wc >> (6 * (len - 1 - i)) & table[0]) | table[1]);
 		else
-			s[i] = (wc) | table[1];
+			s[i] = (wc & table[0]) | table[1];
 	}
 	return (len);
 }
