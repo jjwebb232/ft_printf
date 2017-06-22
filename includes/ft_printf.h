@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 20:30:27 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 20:43:51 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void			get_nums(char **str, const void *arg, t_flag *flags);
 void			get_special_nums(char **str, const void *arg, t_flag *flags);
 void			apply_mods(char **str, t_flag *flags, const void *arg);
 int				add_xprefix(char **str);
+unsigned int	add_chars(char **str, char c, int len, t_flag *flags);
 
 #endif
