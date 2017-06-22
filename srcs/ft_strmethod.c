@@ -16,7 +16,7 @@ void	get_text(char **str, const void *arg, t_flag *flags)
 {
 	if (flags->c)
 		ft_addchar(str, (char)arg);
-	else if ((flags->l && flags->s) || flags->S)
+	else if ((flags->l && flags->s) || flags->ls)
 		ft_addwstr(str, (wchar_t *)arg);
 	else if (!arg)
 		ft_addstr(str, "(null)");
@@ -28,13 +28,13 @@ void	get_uo(char **str, const void *arg, t_flag *flags)
 {
 	int base;
 
-	if (flags->o || flags->O)
+	if (flags->o || flags->lo)
 		base = 8;
 	else
 		base = 10;
 	if (flags->u && flags->ll)
 		*str = ft_ultoa_base((unsigned long long)arg, base);
-	else if (flags->l || flags->O || flags->U)
+	else if (flags->l || flags->lo || flags->lu)
 		*str = ft_ultoa_base((unsigned long)arg, base);
 	else if (flags->hh)
 		*str = ft_ultoa_base((unsigned char)arg, base);
@@ -51,11 +51,11 @@ void	get_uo(char **str, const void *arg, t_flag *flags)
 void	get_nums(char **str, const void *arg, t_flag *flags)
 {
 	ft_memdel((void**)str);
-	if (flags->u || flags->o || flags->U || flags->O)
+	if (flags->u || flags->o || flags->lu || flags->lo)
 		get_uo(str, arg, flags);
 	else if ((flags->i || flags->d) && flags->ll)
 		*str = ft_ltoa((int64_t)arg);
-	else if (((flags->i || flags->d) && flags->l) || flags->D)
+	else if (((flags->i || flags->d) && flags->l) || flags->ld)
 		*str = ft_ltoa((long)arg);
 	else if ((flags->i || flags->d) && flags->h)
 		*str = ft_ltoa((short)arg);
@@ -196,19 +196,19 @@ void	add_precision(char **str, t_flag *flags, unsigned int len, char c)
 	if (flags->buff > flags->prec && !(flags->buff == flags->prec + 1 &&
 		NUM_FLAGS && *str[0] == '-'))
 		c = ' ';
-	if ((flags->s || flags->S) && len > flags->prec)
+	if ((flags->s || flags->ls) && len > flags->prec)
 		*str = (char*)ft_realloc(*str, flags->prec);
-	if ((NUM_FLAGS || flags->x || flags->X || flags->o || flags->O))
+	if ((NUM_FLAGS || flags->x || flags->xx || flags->o || flags->lo))
 		num_precision(str, flags, len);
-	if (!flags->prec && ((flags->s || flags->S || flags->x || flags->X) ||
+	if (!flags->prec && ((flags->s || flags->ls || flags->x || flags->xx) ||
 			(flags->o && !flags->hash && !ft_strcmp(*str, "0"))))
 		*str = new_str();
 	len = ft_strlen(*str);
 	if (flags->buff && flags->sign && ft_isdigit(*str[0]) && c == ' ' &&
-			!flags->u && !flags->U)
+			!flags->u && !flags->lu)
 		add_chars(str, '+', 1, NULL);
 	if (flags->buff > len)
-		if (!((flags->u || flags->U) && c == ' '))
+		if (!((flags->u || flags->lu) && c == ' '))
 			add_chars(str, c,
 				flags->buff - flags->sign - flags->space - len, flags);
 }
@@ -220,9 +220,9 @@ void	init_mods(char **str, t_flag *flags, char *c, unsigned int *len)
 	if ((flags->zero && !flags->left) || (flags->o && flags->dot &&
 			flags->buff < flags->prec))
 		*c = '0';
-	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0"))
+	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0"))
 		*len += 2;
-	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
+	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0")
 			&& !flags->zero)
 		add_xprefix(str);
 	if (flags->o && flags->hash && ft_strcmp(*str, "0"))
@@ -245,20 +245,20 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (flags->c && !arg)
 			i = 1;
 		else
-			i = flags->buff;
+			i = flags->buff - flags->pcent;
 		add_chars(str, c, i - len, flags);
 	}
-	if ((flags->x || flags->X) && flags->hash && ft_strcmp(*str, "0")
+	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0")
 			&& flags->zero && *str[0])
 		add_xprefix(str);
-	if (flags->sign && NUM_FLAGS && !flags->u && !flags->U &&
+	if (flags->sign && NUM_FLAGS && !flags->u && !flags->lu &&
 			ft_isdigit(*str[0]))
 		add_chars(str, '+', 1, NULL);
-	else if (flags->space && NUM_FLAGS && !flags->u && !flags->U &&
+	else if (flags->space && NUM_FLAGS && !flags->u && !flags->lu &&
 			*str[0] != '-' && (!flags->buff || flags->dot))
 		add_chars(str, ' ', 1, NULL);
 }
-
+/*
 int		print_r(const void *arg)
 {
 	char			*style;
@@ -277,11 +277,11 @@ int		print_r(const void *arg)
 void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 {
 	*str = (char*)ft_memalloc(2);
-	if (flags->c || flags->s || flags->S)
+	if (flags->c || flags->s || flags->ls)
 		get_text(str, arg, flags);
-	else if (NUM_FLAGS || flags->o || flags->O)
+	else if (NUM_FLAGS || flags->o || flags->lo)
 		get_nums(str, arg, flags);
-	else if (flags->x || flags->X || flags->p)
+	else if (flags->x || flags->xx || flags->p)
 		get_special_nums(str, arg, flags);
 }
 
@@ -294,7 +294,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 			flags->dot || flags->buff || flags->sign)
 		apply_mods(&str, flags, arg);
 	i = -1;
-	if (flags->X)
+	if (flags->xx)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
@@ -327,4 +327,4 @@ int		ft_printf_arg(const void *arg, t_flag *flags)
 		len = flags->buff;
 	flags->ret += len;
 	return (len);
-}
+}*/

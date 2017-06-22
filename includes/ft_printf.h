@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 02:43:26 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 17:03:18 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 20:25:26 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,32 @@
 # include <stdarg.h>
 # include "libft.h"
 # include "ansi.h"
-# define NUM_FLAGS (flags->d || flags->D || flags->i || flags->u || flags->U)
+# define NUM_FLAGS (flags->d || flags->ld || flags->i || flags->u || flags->lu)
 
 typedef struct	s_flag
 {
 	unsigned int	arg:1;
 	unsigned int	pcent:1;
 	unsigned int	alt:1;
-	unsigned int	a:1;
-	unsigned int	A:1;
 	unsigned int	c:1;
 	unsigned int	d:1;
-	unsigned int	D:1;
-	unsigned int	e:1;
-	unsigned int	E:1;
-	unsigned int	f:1;
-	unsigned int	F:1;
-	unsigned int	g:1;
-	unsigned int	G:1;
+	unsigned int	ld:1;
 	unsigned int	h:1;
 	unsigned int	hh:1;
 	unsigned int	i:1;
 	unsigned int	j:1;
 	unsigned int	l:1;
 	unsigned int	ll:1;
-	unsigned int	L:1;
-	unsigned int	n:1;
 	unsigned int	o:1;
-	unsigned int	O:1;
+	unsigned int	lo:1;
 	unsigned int	p:1;
 	unsigned int	r:1;
 	unsigned int	s:1;
-	unsigned int	S:1;
+	unsigned int	ls:1;
 	unsigned int	u:1;
-	unsigned int	U:1;
+	unsigned int	lu:1;
 	unsigned int	x:1;
-	unsigned int	X:1;
+	unsigned int	xx:1;
 	unsigned int	z:1;
 	unsigned int	hash:1;
 	unsigned int	zero:1;
@@ -73,5 +63,10 @@ typedef	struct	s_va
 int				is_arg(const char c);
 int				set_args(t_flag *flags, const char *str);
 int				ft_printf(const char *str, ...);
-int				ft_strmethod(const void *arg, t_flag *flags);
+int				ft_printf_arg(const void *arg, t_flag *flags);
+void			get_text(char **str, const void *arg, t_flag *flags);
+void			get_nums(char **str, const void *arg, t_flag *flags);
+void			get_special_nums(char **str, const void *arg, t_flag *flags);
+void			apply_mods(char **str, t_flag *flags, const void *arg);
+
 #endif

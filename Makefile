@@ -6,19 +6,19 @@
 #    By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/10 06:20:47 by jwebb             #+#    #+#              #
-#    Updated: 2017/06/20 11:11:08 by jwebb            ###   ########.fr        #
+#    Updated: 2017/06/21 20:23:40 by jwebb            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-FILES = ft_printf.c set_args.c print_args.c ft_isalpha.c ft_strcmp.c\
+FILES = ft_printf.c set_args.c ft_isalpha.c ft_strcmp.c ft_strmethod.c\
 		ft_putchar.c ft_putstr.c ft_putwchar.c ft_putwstr.c ft_strcpy.c\
 		ft_putnbr.c ft_putlong.c ft_putunbr.c ft_putulong.c ft_putshort.c\
 		ft_putsize_t.c ft_putlonglong.c ft_putulonglong.c ft_putintmax_t.c\
 		ft_putuintmax_t.c ft_putascii.c ft_isdigit.c\
 		ft_atoi.c ft_itoh.c ft_uctoa_base.c ft_ustoa_base.c ft_uitoa_base.c\
-		ft_ultoa_base.c ft_toupper.c\
+		ft_ultoa_base.c ft_toupper.c ft_printf_arg.c\
 		ft_strlen.c ft_nbrlen.c ft_unbrlen.c\
 		ft_memalloc.c ft_memset.c ft_wctomb.c ft_putwchar.c ft_putwstr.c\
 		ft_bzero.c ft_strmethod.c ft_addchar.c ft_addstr.c ft_addwstr.c\

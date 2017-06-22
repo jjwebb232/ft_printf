@@ -92,23 +92,23 @@ static int	set_num_args(t_flag *flags, const char *str)
 	if (*str == 'd')
 		flags->d = 1;
 	else if (*str == 'D')
-		flags->D = 1;
+		flags->ld = 1;
 	else if (*str == 'i')
 		flags->i = 1;
 	else if (*str == 'o')
 		flags->o = 1;
 	else if (*str == 'O')
-		flags->O = 1;
+		flags->lo = 1;
 	else if (*str == 'p')
 		flags->p = 1;
 	else if (*str == 'u')
 		flags->u = 1;
 	else if (*str == 'U')
-		flags->U = 1;
+		flags->lu = 1;
 	else if (*str == 'x')
 		flags->x = 1;
 	else if (*str == 'X')
-		flags->X = 1;
+		flags->xx = 1;
 	return (1);
 }
 
@@ -128,12 +128,12 @@ int			set_args(t_flag *flags, const char *str)
 	else if (str[i] == 's')
 		flags->s = 1;
 	else if (str[i] == 'S')
-		flags->S = 1;
+		flags->ls = 1;
 	else if (str[i] == '%')
 		flags->pcent = 1;
 	else if (str[i] == 'r')
 		flags->r = 1;
-	if (flags->c || flags->s || flags->S || flags->pcent || flags->r)
+	if (flags->c || flags->s || flags->ls || flags->pcent || flags->r)
 		++i;
 	return (i);
 }
