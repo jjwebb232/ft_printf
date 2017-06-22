@@ -11,20 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-int		add_xprefix(char **str)
-{
-	char	*tmp;
-
-	tmp = (char*)ft_memalloc(ft_strlen(*str) + 2);
-	tmp = ft_strcat(tmp, "0x");
-	tmp = ft_strcat(tmp, *str);
-	ft_memdel((void**)str);
-	*str = (char*)ft_memalloc(ft_strlen(tmp));
-	*str = ft_strcpy(*str, tmp);
-	ft_memdel((void**)&tmp);
-	return (2);
-}*/
 
 char	*fill_tmp(int len, char c)
 {
@@ -97,7 +83,7 @@ char	*new_str(void)
 	str[0] = '\0';
 	return (str);
 }
-
+/*
 void	num_precision(char **str, t_flag *flags, unsigned int len)
 {
 	if (*str[0] == '-' && len < flags->prec)
@@ -177,4 +163,4 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 	else if (flags->space && NUM_FLAGS && !flags->u && !flags->lu &&
 			*str[0] != '-' && (!flags->buff || flags->dot))
 		add_chars(str, ' ', 1, NULL);
-}
+}*/

@@ -88,7 +88,7 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 		if (flags->c && !arg)
 			i = 1;
 		else
-			i = flags->buff;
+			i = flags->buff - flags->pcent;
 		add_chars(str, c, i - len, flags);
 	}
 	if ((flags->x || flags->xx) && flags->hash && ft_strcmp(*str, "0")
