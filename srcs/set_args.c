@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/17 23:55:49 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 20:57:15 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int			set_args(t_flag *flags, const char *str)
 
 	i = set_mods(flags, str, 0);
 	if (!is_arg(str[i]))
-			ft_putchar(str[i++]);
+		ft_putchar(str[i++]);
 	else if (str[i] == 'd' || str[i] == 'D' || str[i] == 'i' || str[i] == 'o' ||
 			str[i] == 'O' || str[i] == 'p' || str[i] == 'u' || str[i] == 'U' ||
 			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
