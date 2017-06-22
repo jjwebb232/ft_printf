@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/17 23:55:49 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 13:16:00 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ static int	set_mods(t_flag *flags, const char *str, int ret)
 		else
 			flags->prec = 0;
 	}
-	return (set_size_mods(flags, str, ret));
+	ret += set_size_mods(flags, str, 0);
+	return (ret);
 }
 
 static int	set_num_args(t_flag *flags, const char *str)
@@ -92,23 +93,23 @@ static int	set_num_args(t_flag *flags, const char *str)
 	if (*str == 'd')
 		flags->d = 1;
 	else if (*str == 'D')
-		flags->D = 1;
+		flags->ld = 1;
 	else if (*str == 'i')
 		flags->i = 1;
 	else if (*str == 'o')
 		flags->o = 1;
 	else if (*str == 'O')
-		flags->O = 1;
+		flags->lo = 1;
 	else if (*str == 'p')
 		flags->p = 1;
 	else if (*str == 'u')
 		flags->u = 1;
 	else if (*str == 'U')
-		flags->U = 1;
+		flags->lu = 1;
 	else if (*str == 'x')
 		flags->x = 1;
 	else if (*str == 'X')
-		flags->X = 1;
+		flags->xx = 1;
 	return (1);
 }
 
@@ -118,22 +119,23 @@ int			set_args(t_flag *flags, const char *str)
 
 	i = set_mods(flags, str, 0);
 	if (!is_arg(str[i]))
-			ft_putchar(str[i++]);
+		ft_putchar(str[i++]);
 	else if (str[i] == 'd' || str[i] == 'D' || str[i] == 'i' || str[i] == 'o' ||
 			str[i] == 'O' || str[i] == 'p' || str[i] == 'u' || str[i] == 'U' ||
-			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
+			str[i] == 'x' || str[i] == 'X')
 		i += set_num_args(flags, &str[i]);
 	else if (str[i] == 'c' || str[i] == 'C')
 		flags->c = 1;
 	else if (str[i] == 's')
 		flags->s = 1;
 	else if (str[i] == 'S')
-		flags->S = 1;
+		flags->ls = 1;
 	else if (str[i] == '%')
 		flags->pcent = 1;
 	else if (str[i] == 'r')
 		flags->r = 1;
-	if (flags->c || flags->s || flags->S || flags->pcent || flags->r)
+	if (str[i] == 'c' || str[i] == 'C' || str[i] == 's' || str[i] == 'S' ||
+		str[i] == '%' || str[i] == 'r')
 		++i;
 	return (i);
 }
