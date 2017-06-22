@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 void	get_text(char **str, const void *arg, t_flag *flags)
 {
 	if (flags->c)
@@ -69,20 +69,6 @@ void	get_nums(char **str, const void *arg, t_flag *flags)
 		*str = ft_ltoa((int)arg);
 }
 
-int		add_xprefix(char **str)
-{
-	char	*tmp;
-
-	tmp = (char*)ft_memalloc(ft_strlen(*str) + 2);
-	tmp = ft_strcat(tmp, "0x");
-	tmp = ft_strcat(tmp, *str);
-	ft_memdel((void**)str);
-	*str = (char*)ft_memalloc(ft_strlen(tmp));
-	*str = ft_strcpy(*str, tmp);
-	ft_memdel((void**)&tmp);
-	return (2);
-}
-
 void	get_special_nums(char **str, const void *arg, t_flag *flags)
 {
 	ft_memdel((void**)str);
@@ -104,6 +90,20 @@ void	get_special_nums(char **str, const void *arg, t_flag *flags)
 		*str = ft_ultoa_base((unsigned long)arg, 16);
 		add_xprefix(str);
 	}
+}*/
+
+int		add_xprefix(char **str)
+{
+	char	*tmp;
+
+	tmp = (char*)ft_memalloc(ft_strlen(*str) + 2);
+	tmp = ft_strcat(tmp, "0x");
+	tmp = ft_strcat(tmp, *str);
+	ft_memdel((void**)str);
+	*str = (char*)ft_memalloc(ft_strlen(tmp));
+	*str = ft_strcpy(*str, tmp);
+	ft_memdel((void**)&tmp);
+	return (2);
 }
 
 char	*fill_tmp(int len, char c)
@@ -258,73 +258,3 @@ void	apply_mods(char **str, t_flag *flags, const void *arg)
 			*str[0] != '-' && (!flags->buff || flags->dot))
 		add_chars(str, ' ', 1, NULL);
 }
-/*
-int		print_r(const void *arg)
-{
-	char			*style;
-	int				len;
-
-	style = (char*)ft_memalloc(4 + ft_strlen(arg));
-	style = ft_strcat(style, A_START);
-	style = ft_strcat(style, arg);
-	style = ft_strcat(style, A_END);
-	ft_putstr(style);
-	len = ft_strlen(style);
-	ft_memdel((void**)&style);
-	return (len);
-}
-
-void	ft_buildstr(const void *arg, t_flag *flags, char **str)
-{
-	*str = (char*)ft_memalloc(2);
-	if (flags->c || flags->s || flags->ls)
-		get_text(str, arg, flags);
-	else if (NUM_FLAGS || flags->o || flags->lo)
-		get_nums(str, arg, flags);
-	else if (flags->x || flags->xx || flags->p)
-		get_special_nums(str, arg, flags);
-}
-
-int		ft_printstr(const void *arg, t_flag *flags, char *str)
-{
-	int				i;
-	int				len;
-
-	if (flags->hash || flags->zero || flags->left || flags->space ||
-			flags->dot || flags->buff || flags->sign)
-		apply_mods(&str, flags, arg);
-	i = -1;
-	if (flags->xx)
-		while (str[++i])
-			if (ft_isalpha(str[i]))
-				str[i] = ft_toupper(str[i]);
-	if (flags->pcent && flags->left)
-		ft_putchar('%');
-	ft_putstr(str);
-	if (flags->pcent && !flags->left)
-		ft_putchar('%');
-	if (flags->c && !arg)
-		ft_putchar(0);
-	len = ft_strlen(str) + flags->pcent;
-	ft_memdel((void**)&str);
-	return (len);
-}
-
-int		ft_printf_arg(const void *arg, t_flag *flags)
-{
-	char			*str;
-	unsigned int	len;
-
-	if (flags->r)
-		return (flags->ret += print_r(arg));
-	len = 0;
-	ft_buildstr(arg, flags, &str);
-	if (str)
-		len = ft_printstr(arg, flags, str);
-	if (flags->c && !len && !flags->buff)
-		len = 1;
-	else if (flags->c && flags->buff)
-		len = flags->buff;
-	flags->ret += len;
-	return (len);
-}*/
