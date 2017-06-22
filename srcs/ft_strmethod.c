@@ -310,7 +310,7 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 	return (len);
 }
 
-int		ft_strmethod(const void *arg, t_flag *flags)
+int		ft_printf_arg(const void *arg, t_flag *flags)
 {
 	char			*str;
 	unsigned int	len;
