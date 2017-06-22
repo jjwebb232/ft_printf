@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addstr.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
+/*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/14 22:57:45 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:53 by jwebb            ###   ########.fr       */
+/*   Created: 2016/11/21 07:54:01 by jwebb             #+#    #+#             */
+/*   Updated: 2016/11/30 18:15:55 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_addstr(char **str, char *s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	*str = (char *)ft_memalloc(ft_strlen(s));
-	*str = ft_strcat(*str, s);
+	size_t			i;
+	unsigned char	*d;
+	unsigned char	*s;
+
+	i = 0;
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	while (i < n)
+	{
+		d[i] = s[i];
+		i++;
+	}
+	return (dst);
 }

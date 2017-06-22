@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putlong.c                                       :+:      :+:    :+:   */
+/*   ft_putlonglong.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 22:44:56 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:12:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 10:47:04 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static long	ft_printlong(long long n, long l)
+static long	ft_printlonglong(long long n, long l)
 {
 	int		i;
 	long	temp;
-
+	
 	i = 0;
 	temp = l;
 	while (temp && ++i)
@@ -30,26 +30,18 @@ static long	ft_printlong(long long n, long l)
 	return (n * l);
 }
 
-void		edge_handler(long n)
+void	ft_putlonglong(long long n)
 {
-	ft_putlong(n / 10);
-	if (n < 0)
-		ft_putlong(-(n % 10));
-	else
-		ft_putlong(n % 10);
-}
-
-void		ft_putlong(long n)
-{
-	long		l;
-	long		min;
+	long long	l;
 
 	l = 1;
-	min = 9223372036854775807;
-	++min;
-	if (n == 9223372036854775807 || n == min)
+	if (n == LLONG_MIN || n == LLONG_MAX)
 	{
-		edge_handler(n);
+		ft_putlong(n / 10);
+		if (n < 0)
+			ft_putlonglong(-(n % 10));
+		else
+			ft_putlonglong(n % 10);
 		return ;
 	}
 	if (n < 0)
@@ -61,7 +53,7 @@ void		ft_putlong(long n)
 		l *= 10;
 	while (l > 0)
 	{
-		n -= ft_printlong(n, l);
+		n -= ft_printlonglong(n, l);
 		l /= 10;
 	}
 }

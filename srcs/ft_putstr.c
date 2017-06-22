@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addstr.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
+/*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/14 22:57:45 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:53 by jwebb            ###   ########.fr       */
+/*   Created: 2016/11/01 15:24:15 by jwebb             #+#    #+#             */
+/*   Updated: 2016/11/30 21:28:55 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_addstr(char **str, char *s)
+void	ft_putstr(char const *s)
 {
-	*str = (char *)ft_memalloc(ft_strlen(s));
-	*str = ft_strcat(*str, s);
+	int n;
+
+	n = 0;
+	if (s)
+		while (s[n])
+			ft_putchar(s[n++]);
 }

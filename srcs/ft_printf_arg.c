@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 09:50:53 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 17:34:58 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 13:14:58 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		print_r(const void *arg)
 void	ft_buildstr(const void *arg, t_flag *flags, char **str)
 {
 	*str = (char*)ft_memalloc(1);
-	if (flags->c || flags->s || flags->ls)
+	if (flags->c || flags->s || flags->ls || flags->pcent)
 		get_text(str, arg, flags);
 	else if (NUM_FLAGS || flags->o || flags->lo)
 		get_nums(str, arg, flags);
@@ -51,14 +51,10 @@ int		ft_printstr(const void *arg, t_flag *flags, char *str)
 		while (str[++i])
 			if (ft_isalpha(str[i]))
 				str[i] = ft_toupper(str[i]);
-	if (flags->pcent && flags->left)
-		ft_putchar('%');
 	ft_putstr(str);
-	if (flags->pcent && !flags->left)
-		ft_putchar('%');
 	if (flags->c && !arg)
 		ft_putchar(0);
-	len = ft_strlen(str) + flags->pcent;
+	len = ft_strlen(str);
 	ft_memdel((void**)&str);
 	return (len);
 }
@@ -70,8 +66,8 @@ int		ft_printf_arg(const void *arg, t_flag *flags)
 
 	if (flags->r)
 		return (flags->ret += print_r(arg));
-	len = 0;
 	ft_buildstr(arg, flags, &str);
+	len = 0;
 	if (str)
 		len = ft_printstr(arg, flags, str);
 	if (flags->c && !len && !flags->buff)

@@ -1,19 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addstr.c                                        :+:      :+:    :+:   */
+/*   precision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/14 22:57:45 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:53 by jwebb            ###   ########.fr       */
+/*   Created: 2017/05/18 19:18:14 by jwebb             #+#    #+#             */
+/*   Updated: 2017/06/15 04:59:06 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_addstr(char **str, char *s)
-{
-	*str = (char *)ft_memalloc(ft_strlen(s));
-	*str = ft_strcat(*str, s);
-}
+//void	precision

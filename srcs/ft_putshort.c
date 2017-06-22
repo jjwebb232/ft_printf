@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_addstr.c                                        :+:      :+:    :+:   */
+/*   ft_putshort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/14 22:57:45 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:53 by jwebb            ###   ########.fr       */
+/*   Created: 2017/05/17 14:45:42 by jwebb             #+#    #+#             */
+/*   Updated: 2017/05/17 14:48:13 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_addstr(char **str, char *s)
+void	ft_putshort(int n)
 {
-	*str = (char *)ft_memalloc(ft_strlen(s));
-	*str = ft_strcat(*str, s);
+	short s;
+
+	s = (short)n;
+	ft_putnbr(s);
 }

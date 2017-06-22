@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 22:44:56 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:12:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/04/27 00:14:41 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static long	ft_printlong(long long n, long l)
 {
 	int		i;
 	long	temp;
-
+	
 	i = 0;
 	temp = l;
 	while (temp && ++i)
@@ -30,16 +30,7 @@ static long	ft_printlong(long long n, long l)
 	return (n * l);
 }
 
-void		edge_handler(long n)
-{
-	ft_putlong(n / 10);
-	if (n < 0)
-		ft_putlong(-(n % 10));
-	else
-		ft_putlong(n % 10);
-}
-
-void		ft_putlong(long n)
+void	ft_putlong(long n)
 {
 	long		l;
 	long		min;
@@ -49,7 +40,11 @@ void		ft_putlong(long n)
 	++min;
 	if (n == 9223372036854775807 || n == min)
 	{
-		edge_handler(n);
+		ft_putlong(n / 10);
+		if (n < 0)
+			ft_putlong(-(n % 10));
+		else
+			ft_putlong(n % 10);
 		return ;
 	}
 	if (n < 0)

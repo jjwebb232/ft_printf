@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putlong.c                                       :+:      :+:    :+:   */
+/*   ft_putuintmax_t.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 22:44:56 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:12:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/05/31 11:37:51 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static long	ft_printlong(long long n, long l)
+static long	ft_printuintmax_t(uintmax_t n, uintmax_t l)
 {
-	int		i;
-	long	temp;
-
+	int			i;
+	uintmax_t	temp;
+	
 	i = 0;
 	temp = l;
 	while (temp && ++i)
@@ -30,38 +30,22 @@ static long	ft_printlong(long long n, long l)
 	return (n * l);
 }
 
-void		edge_handler(long n)
+void	ft_putuintmax_t(uintmax_t n)
 {
-	ft_putlong(n / 10);
-	if (n < 0)
-		ft_putlong(-(n % 10));
-	else
-		ft_putlong(n % 10);
-}
-
-void		ft_putlong(long n)
-{
-	long		l;
-	long		min;
+	uintmax_t	l;
 
 	l = 1;
-	min = 9223372036854775807;
-	++min;
-	if (n == 9223372036854775807 || n == min)
+	if (n == UINTMAX_MAX)
 	{
-		edge_handler(n);
+		ft_putintmax_t(n / 10);
+		ft_putuintmax_t(n % 10);
 		return ;
-	}
-	if (n < 0)
-	{
-		n *= -1;
-		write(1, "-", 1);
 	}
 	while (n / l > 9)
 		l *= 10;
 	while (l > 0)
 	{
-		n -= ft_printlong(n, l);
+		n -= ft_printuintmax_t(n, l);
 		l /= 10;
 	}
 }
