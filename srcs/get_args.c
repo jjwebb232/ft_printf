@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 11:23:33 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:15:32 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/24 11:15:32 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	get_text(char **str, const void *arg, t_flag *flags)
 {
 	if (flags->c)
 		ft_addchar(str, (char)arg);
-	else if (flags->pcent)
-		*str[0] = '%';
 	else if ((flags->l && flags->s) || flags->ls)
 		ft_addwstr(str, (wchar_t *)arg);
 	else if (!arg)

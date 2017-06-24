@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 22:56:03 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:56:19 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/24 11:17:58 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_addchar(char **str, char c)
 {
-	*str = ft_memalloc(1);
+	if (str && *str)
+		ft_memdel((void**)str);
+	*str = ft_memalloc(2);
 	*str[0] = c;
 }

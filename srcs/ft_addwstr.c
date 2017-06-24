@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 22:57:20 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/14 22:57:31 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/24 11:19:06 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_addwstr(char **str, wchar_t *ws)
 	char	*wc;
 
 	i = -1;
-	*str = ft_memalloc(1);
+	if (str && !*str)
+		*str = ft_memalloc(1);
 	while (ws[++i])
 	{
 		if (!(wc = ft_getwchar(ws[i])))
