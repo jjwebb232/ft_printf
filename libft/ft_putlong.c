@@ -6,12 +6,11 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 22:44:56 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:12:56 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 14:06:25 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static long	ft_printlong(long long n, long l)
 {
