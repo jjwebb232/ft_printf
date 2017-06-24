@@ -6,7 +6,7 @@
 /*   By: jwebb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 15:28:01 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 12:51:38 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 20:58:15 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ char				*ft_itoh(long n);
 char				*ft_uctoa_base(short n, int base);
 char				*ft_ustoa_base(int n, int base);
 char				*ft_uitoa_base(long n, int base);
-char				*ft_ultoa_base(long long n, int base);
+char				*ft_ultoa_base(long n, int base);
 char				*ft_imtoa_base(intmax_t n, int base);
 char				*ft_uimtoa_base(intmax_t n, int base);
 char				*ft_strmap(char const *s, char (*f)(char));

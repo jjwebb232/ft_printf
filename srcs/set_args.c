@@ -6,7 +6,7 @@
 /*   By: jwebb <jwebb@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 02:56:30 by jwebb             #+#    #+#             */
-/*   Updated: 2017/06/21 13:16:00 by jwebb            ###   ########.fr       */
+/*   Updated: 2017/06/21 20:57:15 by jwebb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ static int	set_mods(t_flag *flags, const char *str, int ret)
 		else
 			flags->prec = 0;
 	}
-	ret += set_size_mods(flags, str, 0);
-	return (ret);
+	return (set_size_mods(flags, str, ret));
 }
 
 static int	set_num_args(t_flag *flags, const char *str)
@@ -122,7 +121,7 @@ int			set_args(t_flag *flags, const char *str)
 		ft_putchar(str[i++]);
 	else if (str[i] == 'd' || str[i] == 'D' || str[i] == 'i' || str[i] == 'o' ||
 			str[i] == 'O' || str[i] == 'p' || str[i] == 'u' || str[i] == 'U' ||
-			str[i] == 'x' || str[i] == 'X')
+			str[i] == 'x' || str[i] == 'X' || (str[i] >= '0' && str[i] <= '9'))
 		i += set_num_args(flags, &str[i]);
 	else if (str[i] == 'c' || str[i] == 'C')
 		flags->c = 1;
@@ -134,8 +133,7 @@ int			set_args(t_flag *flags, const char *str)
 		flags->pcent = 1;
 	else if (str[i] == 'r')
 		flags->r = 1;
-	if (str[i] == 'c' || str[i] == 'C' || str[i] == 's' || str[i] == 'S' ||
-		str[i] == '%' || str[i] == 'r')
+	if (flags->c || flags->s || flags->ls || flags->pcent || flags->r)
 		++i;
 	return (i);
 }
